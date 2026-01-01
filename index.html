@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Victor Li — Biomedical Engineering & Computer Science. Selected projects in diabetes analytics, computational biology, and embedded systems." />
+
+  <!-- Open Graph (clean previews when you paste the link) -->
+  <meta property="og:title" content="Victor Li — Portfolio" />
+  <meta property="og:description" content="Selected projects: CGM analytics + dashboard, protein interaction modeling, TB drug-synergy pipeline, CAD prototyping + testing." />
+  <meta property="og:type" content="website" />
+
+  <title>Victor Li | Portfolio</title>
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --surface:#ffffff;
+      --surface2:#f5f7fb;
+      --text:#0b1220;
+      --muted:#4b5568;
+      --line: rgba(11,18,32,.12);
+      --shadow: 0 10px 24px rgba(2,6,23,.08);
+      --radius: 16px;
+      --max: 1040px;
+      --link:#0b5fff;
+      --chip:#eef2ff;
+      --chipText:#1f2a44;
+      --codeBg:#0b1020;
+      --codeText:#e9edf7;
+    }
+
+    [data-theme="dark"]{
+      --bg:#0b0b0c;
+      --surface:#0f0f12;
+      --surface2:#12131a;
+      --text:#f4f6fb;
+      --muted:#b2b8c6;
+      --line: rgba(244,246,251,.14);
+      --shadow: 0 14px 30px rgba(0,0,0,.45);
+      --link:#9bbcff;
+      --chip:#171823;
+      --chipText:#d8def0;
+      --codeBg:#07070a;
+      --codeText:#f4f6fb;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 70px}
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .navInner{max-width:var(--max); margin:0 auto; padding:12px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+
+    .brand{display:flex; gap:10px; align-items:center; color:var(--text); text-decoration:none}
+    .mark{width:10px; height:10px; border-radius:999px; background:var(--text); opacity:.9}
+    .brand strong{font-size:14px; letter-spacing:.2px}
+
+    .navLinks{display:flex; gap:6px; align-items:center; flex-wrap:wrap}
+    .navLinks a{font-size:13px; color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:999px}
+    .navLinks a:hover{background:color-mix(in srgb, var(--surface2) 70%, transparent); color:var(--text); text-decoration:none}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:color-mix(in srgb, var(--surface) 94%, transparent);
+      color:var(--text);
+      text-decoration:none;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px)}
+
+    .btnPrimary{
+      background:var(--text);
+      color:var(--bg);
+      border-color: color-mix(in srgb, var(--text) 70%, var(--line));
+    }
+    [data-theme="dark"] .btnPrimary{color:#0b0b0c}
+
+    /* Hero */
+    .hero{padding:44px 0 20px}
+    h1{margin:0; font-size:42px; line-height:1.05; letter-spacing:-.7px}
+    .subtitle{margin:10px 0 0; color:var(--muted); font-size:15px; line-height:1.65; max-width:860px}
+
+    .metaRow{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .meta{font-size:13px; color:var(--muted)}
+    .sep{opacity:.45}
+
+    .cta{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap}
+
+    /* Sections */
+    .section{margin-top:22px}
+    .sectionHeader{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin:30px 0 12px}
+    .sectionHeader h2{margin:0; font-size:16px; letter-spacing:.2px}
+    .sectionHeader p{margin:0; color:var(--muted); font-size:13px}
+
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:16px}
+
+    .card{
+      grid-column: span 12;
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+
+    @media (min-width: 900px){
+      .card.span6{grid-column: span 6}
+      .card.span7{grid-column: span 7}
+      .card.span5{grid-column: span 5}
+    }
+
+    .projTitle{margin:0; font-size:15px}
+    .projMeta{margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.55}
+
+    .tagRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .tag{font-size:12px; color:var(--chipText); border:1px solid var(--line); padding:6px 9px; border-radius:999px; background:var(--chip)}
+
+    ul{margin:10px 0 0; padding-left:18px; color:var(--muted); line-height:1.6}
+    li{margin:6px 0}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px}
+
+    /* Details (collapsible) */
+    details{border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:color-mix(in srgb, var(--surface2) 55%, transparent)}
+    details + details{margin-top:10px}
+    summary{cursor:pointer; font-weight:600; font-size:13px; color:var(--text)}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+"; float:right; color:var(--muted)}
+    details[open] summary::after{content:"–"}
+    .detailsBody{margin-top:10px; color:var(--muted); font-size:13px; line-height:1.6}
+
+    /* Code blocks */
+    pre{margin:10px 0 0; padding:14px; overflow:auto; border-radius:14px; background:var(--codeBg); color:var(--codeText); border:1px solid color-mix(in srgb, var(--line) 70%, transparent)}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px}
+
+    /* Images */
+    .photoGrid{display:grid; grid-template-columns: 1fr; gap:12px; margin-top:10px}
+    @media (min-width: 900px){
+      .photoGrid{grid-template-columns: 1fr 1fr}
+    }
+    figure{margin:0}
+    .imgWrap{border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--surface)}
+    img{display:block; width:100%; height:auto}
+    figcaption{margin-top:8px; color:var(--muted); font-size:12px; line-height:1.45}
+
+    .footer{
+      margin-top:28px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    :focus-visible{outline:2px solid color-mix(in srgb, var(--link) 70%, white); outline-offset:2px; border-radius:10px}
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="navInner">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="mark" aria-hidden="true"></span>
+        <strong>Victor Li</strong>
+      </a>
+
+      <nav class="navLinks" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="row" style="margin-top:0">
+        <button class="btn" id="themeBtn" type="button" aria-label="Toggle theme">Theme</button>
+        <a class="btn btnPrimary" href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <section class="hero">
+      <h1>Victor Li</h1>
+      <p class="subtitle">
+        University of Michigan engineering student (Biomedical Engineering, CS minor). I work on computational biology,
+        diabetes analytics, and embedded systems, and I focus on producing clean deliverables: dashboards, ranked candidate lists,
+        tested prototypes, and readable code.
+      </p>
+      <div class="metaRow">
+        <span class="meta">Ann Arbor, MI • NYC</span>
+        <span class="meta sep">|</span>
+        <a class="meta" href="mailto:victli@umich.edu">victli@umich.edu</a>
+        <span class="meta sep">|</span>
+        <a class="meta" href="https://www.linkedin.com/in/victor-li-444b591b9" target="_blank" rel="noreferrer">LinkedIn</a>
+        <span class="meta sep">|</span>
+        <a class="meta" href="https://github.com/Victor-2007" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+
+      <div class="cta">
+        <a class="btn btnPrimary" href="#projects">Projects</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="sectionHeader">
+        <h2>Selected Projects</h2>
+        <p>Concise, recruiter-friendly summaries</p>
+      </div>
+
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">CGM Time-Series Analytics + R Shiny Dashboard</h3>
+          <p class="projMeta">
+            Analyzed long-term CGM datasets and built an interactive dashboard to explore temporal glycemic patterns.
+          </p>
+          <div class="tagRow">
+            <span class="tag">R</span>
+            <span class="tag">tidyverse</span>
+            <span class="tag">Shiny</span>
+            <span class="tag">time-series</span>
+          </div>
+          <ul>
+            <li>Processed 2.1M+ CGM readings and quantified day-to-day and time-of-day variability</li>
+            <li>Built 30+ interactive visualizations (longitudinal trends, distributions, stratified comparisons)</li>
+            <li>Maintained a collaborative GitHub workflow for reproducible analysis</li>
+          </ul>
+          <div class="row">
+            <a class="btn" href="https://bowenz.shinyapps.io/cgm_long-term_glycemic_patterns/" target="_blank" rel="noreferrer">Dashboard</a>
+            <a class="btn" href="https://journals.sagepub.com/doi/10.1177/19322968251341264" target="_blank" rel="noreferrer">Publication</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Einstein / Montefiore: Protein Interaction Modeling (Insulin Receptor)</h3>
+          <p class="projMeta">
+            Structure-based computational analysis supporting figures and data tables for receptor–protein interaction work.
+          </p>
+          <div class="tagRow">
+            <span class="tag">computational biology</span>
+            <span class="tag">PDB parsing</span>
+            <span class="tag">Java</span>
+            <span class="tag">Apache POI</span>
+          </div>
+          <ul>
+            <li>Produced 10+ publication figures and summary tables from structural datasets</li>
+            <li>Wrote Java utilities to parse large PDB-derived tables into standardized Excel outputs</li>
+            <li>Worked with high-dimensional datasets (100K+ columns) for sensitivity checks and reporting</li>
+          </ul>
+          <div class="row">
+            <a class="btn" href="https://www.biorxiv.org/content/10.1101/2024.09.06.611694v1" target="_blank" rel="noreferrer">Preprint</a>
+          </div>
+
+          <details style="margin-top:12px">
+            <summary>Code samples (Java)</summary>
+            <div class="detailsBody">
+              <details>
+                <summary>1) Distance-based “interest” flagging in Excel (Apache POI)</summary>
+                <div class="detailsBody">
+                  <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Reads a single Excel sheet containing two sets of 3D coordinates (e.g., Molecule B and Molecule C).
+ * For each Molecule B row, it checks whether any Molecule C row lies within a threshold distance.
+ * Writes an "Interest" column (Yes/No) for Molecule B rows.
+ */
+public class ReadingExcel {
+
+  public static void main(String[] args) throws IOException {
+    // Usage: java ReadingExcel input.xlsx
+    if (args.length < 1) {
+      System.out.println("Usage: java ReadingExcel <input.xlsx>");
+      return;
+    }
+
+    String excelFilePath = args[0];
+    double threshold = 10.0; // distance cutoff
+
+    try (FileInputStream in = new FileInputStream(excelFilePath);
+         XSSFWorkbook workbook = new XSSFWorkbook(in)) {
+
+      XSSFSheet sheet = workbook.getSheetAt(0);
+
+      // Add Interest header in column 13 (0-indexed = 12)
+      XSSFRow headerRow = sheet.getRow(0);
+      XSSFCell headerCell = headerRow.createCell(12, CellType.STRING);
+      headerCell.setCellValue("Interest");
+
+      int lastRow = sheet.getLastRowNum();
+
+      // Example layout:
+      // Rows 1..869  = Molecule B
+      // Rows 870..lastRow = Molecule C
+      for (int i = 1; i < 870; i++) {
+        XSSFRow rowB = sheet.getRow(i);
+        double xB = rowB.getCell(6).getNumericCellValue();
+        double yB = rowB.getCell(7).getNumericCellValue();
+        double zB = rowB.getCell(8).getNumericCellValue();
+
+        boolean isOfInterest = false;
+        for (int j = 870; j <= lastRow; j++) {
+          XSSFRow rowC = sheet.getRow(j);
+          double xC = rowC.getCell(6).getNumericCellValue();
+          double yC = rowC.getCell(7).getNumericCellValue();
+          double zC = rowC.getCell(8).getNumericCellValue();
+
+          double dx = xC - xB;
+          double dy = yC - yB;
+          double dz = zC - zB;
+          double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+          if (distance < threshold) {
+            isOfInterest = true;
+            break;
+          }
+        }
+
+        XSSFCell interestCell = rowB.createCell(12, CellType.STRING);
+        interestCell.setCellValue(isOfInterest ? "Yes" : "No");
+      }
+
+      // Overwrite the file in-place
+      try (FileOutputStream out = new FileOutputStream(excelFilePath)) {
+        workbook.write(out);
+      }
+    }
+
+    System.out.println("Done");
+  }
+}
+</code></pre>
+                  <p class="projMeta" style="margin-top:10px">
+                    This script reads 3D coordinate columns for two molecule groups on a single sheet. For each row in the first group,
+                    it scans the second group and flags the row as “Yes” if any point is within a distance threshold (10 Å here). The output is
+                    written back into an “Interest” column so downstream steps can filter and count contacts without manual review.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>2) Flagging the second molecule group (reverse direction)</summary>
+                <div class="detailsBody">
+                  <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Similar to the first script, but writes the Interest flag for Molecule C rows
+ * by checking whether any Molecule B row is within the threshold.
+ * Writes results to a new file (output path).
+ */
+public class SecondMoleculeInterest {
+
+  public static void main(String[] args) throws IOException {
+    // Usage: java SecondMoleculeInterest input.xlsx output.xlsx
+    if (args.length < 2) {
+      System.out.println("Usage: java SecondMoleculeInterest <input.xlsx> <output.xlsx>");
+      return;
+    }
+
+    String inputPath = args[0];
+    String outputPath = args[1];
+    double threshold = 10.0;
+
+    try (FileInputStream in = new FileInputStream(inputPath);
+         XSSFWorkbook workbook = new XSSFWorkbook(in)) {
+
+      XSSFSheet sheet = workbook.getSheetAt(0);
+      int lastRow = sheet.getLastRowNum();
+
+      // Rows 1..869 = Molecule B; rows 870..lastRow = Molecule C
+      for (int i = 870; i <= lastRow; i++) {
+        XSSFRow rowC = sheet.getRow(i);
+        double xC = rowC.getCell(6).getNumericCellValue();
+        double yC = rowC.getCell(7).getNumericCellValue();
+        double zC = rowC.getCell(8).getNumericCellValue();
+
+        boolean isOfInterest = false;
+        for (int j = 1; j < 870; j++) {
+          XSSFRow rowB = sheet.getRow(j);
+          double xB = rowB.getCell(6).getNumericCellValue();
+          double yB = rowB.getCell(7).getNumericCellValue();
+          double zB = rowB.getCell(8).getNumericCellValue();
+
+          double dx = xB - xC;
+          double dy = yB - yC;
+          double dz = zB - zC;
+          double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+          if (distance < threshold) {
+            isOfInterest = true;
+            break;
+          }
+        }
+
+        XSSFCell interestCell = rowC.getCell(12);
+        if (interestCell == null) interestCell = rowC.createCell(12, CellType.STRING);
+        interestCell.setCellValue(isOfInterest ? "Yes" : "No");
+      }
+
+      try (FileOutputStream out = new FileOutputStream(outputPath)) {
+        workbook.write(out);
+      }
+    }
+
+    System.out.println("Wrote updated file.");
+  }
+}
+</code></pre>
+                  <p class="projMeta" style="margin-top:10px">
+                    This variant computes the same proximity rule, but stores the “Interest” label on the second molecule group.
+                    That makes it easy to compute contact statistics for either side (e.g., percent of Molecule C residues near Molecule B).
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>3) Aggregating across multiple models (probability-style summary)</summary>
+                <div class="detailsBody">
+                  <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Loads multiple model output files, counts how many models mark each row as Interest="Yes",
+ * and writes a compact summary into a master sheet.
+ */
+public class ProbabilityAggregator {
+
+  public static void main(String[] args) throws IOException {
+    // Example usage:
+    // java ProbabilityAggregator master.xlsx model1.xlsx model2.xlsx model3.xlsx
+    if (args.length < 2) {
+      System.out.println("Usage: java ProbabilityAggregator <master.xlsx> <model1.xlsx> ...");
+      return;
+    }
+
+    String masterPath = args[0];
+
+    // Load all workbooks
+    Map<String, XSSFSheet> sheets = new HashMap<>();
+    Map<String, XSSFWorkbook> books = new HashMap<>();
+
+    for (int i = 0; i < args.length; i++) {
+      String path = args[i];
+      try (FileInputStream in = new FileInputStream(path)) {
+        XSSFWorkbook wb = new XSSFWorkbook(in);
+        XSSFSheet sh = wb.getSheetAt(0);
+        String key = (i == 0) ? "MASTER" : ("MODEL" + i);
+        sheets.put(key, sh);
+        books.put(key, wb);
+      }
+    }
+
+    XSSFSheet masterSheet = sheets.get("MASTER");
+
+    // For each row, count models where Interest=="Yes" and write to column J (index 9)
+    for (int rowNum = 1; rowNum <= masterSheet.getLastRowNum(); rowNum++) {
+      int yesCount = 0;
+
+      for (String name : sheets.keySet()) {
+        if (name.equals("MASTER")) continue;
+        XSSFRow row = sheets.get(name).getRow(rowNum);
+        if (row == null) continue;
+
+        XSSFCell cell = row.getCell(12); // Interest column
+        if (cell != null && "Yes".equalsIgnoreCase(cell.getStringCellValue())) {
+          yesCount++;
+        }
+      }
+
+      XSSFRow outRow = masterSheet.getRow(rowNum);
+      if (outRow == null) outRow = masterSheet.createRow(rowNum);
+      XSSFCell outCell = outRow.createCell(9, CellType.STRING);
+      outCell.setCellValue("Yes in " + yesCount + " models");
+    }
+
+    // Write master workbook back
+    try (FileOutputStream out = new FileOutputStream(masterPath)) {
+      books.get("MASTER").write(out);
+    }
+
+    // Close remaining workbooks
+    for (Map.Entry<String, XSSFWorkbook> e : books.entrySet()) {
+      if (!e.getKey().equals("MASTER")) e.getValue().close();
+    }
+    books.get("MASTER").close();
+
+    System.out.println("Aggregation complete.");
+  }
+}
+</code></pre>
+                  <p class="projMeta" style="margin-top:10px">
+                    This script consolidates results from multiple model runs. For each row, it counts how many models flagged it as “Interest = Yes”,
+                    then writes a compact summary back into a master file. The point is to quickly surface the most consistent contacts across runs
+                    without hand-checking each spreadsheet.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </details>
+        </article>
+
+        <article class="card span7">
+          <h3 class="projTitle">TB Drug-Synergy Screening Pipeline (INDIGO-style)</h3>
+          <p class="projMeta">
+            Automated modeling runs and ranked shortlists to prioritize combinations for follow-up testing.
+          </p>
+          <div class="tagRow">
+            <span class="tag">MATLAB</span>
+            <span class="tag">ETL</span>
+            <span class="tag">batch correction (ComBat)</span>
+            <span class="tag">ranking</span>
+          </div>
+          <ul>
+            <li>Ran high-throughput prediction jobs screening 100,000+ drug combinations with repeatable logging</li>
+            <li>Generated analysis-ready Excel exports and ranked candidate lists for lab review</li>
+            <li>Computed correlation (Pearson/Spearman) and p-values to compare predictions across conditions</li>
+          </ul>
+
+          <details style="margin-top:12px">
+            <summary>MATLAB pipeline overview (expand)</summary>
+            <div class="detailsBody">
+              <details>
+                <summary>1) Append a new condition → impute → ComBat</summary>
+                <div class="detailsBody">
+                  <p class="projMeta">
+                    Ingest a new transcriptome/fitness file, align by gene ID, fill missing values per-column (median fallback), and run ComBat to remove batch effects.
+                    Save a single corrected matrix for all downstream predictions.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>2) Build phenotype features</summary>
+                <div class="detailsBody">
+                  <p class="projMeta">
+                    Convert expression into a phenotype representation (z-thresholded) so the model can compare conditions consistently.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>3) Train → predict → export ranked combinations</summary>
+                <div class="detailsBody">
+                  <p class="projMeta">
+                    Train on curated interaction data, then run batched predictions for 2-way / 3-way / 4-way combinations. Export standardized tables for sorting and triage.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>4) Correlation + p-values (reporting)</summary>
+                <div class="detailsBody">
+                  <p class="projMeta">
+                    Compute Pearson/Spearman correlations between prediction vectors and report p-values to quantify agreement. Rank primarily by Spearman for robustness.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </details>
+        </article>
+
+        <article class="card span5">
+          <h3 class="projTitle">Bedside Buddy: attachable dorm bedside storage (CAD + prototype testing)</h3>
+          <p class="projMeta">
+            Designed a modular bedside cabinet for UMich residence hall bedframes using the existing bunking pin-hole interface.
+          </p>
+          <div class="tagRow">
+            <span class="tag">CAD</span>
+            <span class="tag">CAE</span>
+            <span class="tag">prototyping</span>
+            <span class="tag">testing</span>
+          </div>
+          <ul>
+            <li>Iterated through CAD/CAE revisions and a modular 3D-printed prototype with swappable components</li>
+            <li>Designed for tool-less installation and non-marring attachment by indexing into existing bedframe pin holes</li>
+            <li>Ran setup-time checks plus basic stability and deflection sanity checks under everyday loads</li>
+          </ul>
+
+          <details style="margin-top:12px">
+            <summary>Photos</summary>
+            <div class="detailsBody">
+              <div class="photoGrid">
+                <figure>
+                  <div class="imgWrap">
+                    <img data-fallback="BedsideBuddySketch.png" src="assets/BedsideBuddySketch.png" alt="Early sketch of Bedside Buddy showing modular sections and pin-hole interface" loading="lazy" />
+                  </div>
+                  <figcaption>Early sketch showing modular sections and the pin-hole interface constraints</figcaption>
+                </figure>
+                <figure>
+                  <div class="imgWrap">
+                    <img data-fallback="CadModelBedsideBuddy.png" src="assets/CadModelBedsideBuddy.png" alt="Exploded CAD view of modular parts" loading="lazy" />
+                  </div>
+                  <figcaption>Exploded CAD view of modular parts</figcaption>
+                </figure>
+              </div>
+            </div>
+          </details>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Embedded Firmware: Heated OR Mattress (MHEAL)</h3>
+          <p class="projMeta">
+            Raspberry Pi control software with safety interlocks, UI, and logging for a low-resource perioperative warming device.
+          </p>
+          <div class="tagRow">
+            <span class="tag">Python</span>
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">GPIO</span>
+            <span class="tag">safety</span>
+          </div>
+          <ul>
+            <li>Implemented relay control, touchscreen UI, alerts, and telemetry logging</li>
+            <li>Bench-tested sensors/heating behavior and summarized recommended thresholds</li>
+            <li>Wrote docs so new members can reproduce setup and tests</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="publications" class="section">
+      <div class="sectionHeader">
+        <h2>Publications</h2>
+        <p>Direct links</p>
+      </div>
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">Temporal Glycemic Patterns in Type 1 and Type 2 Diabetes</h3>
+          <p class="projMeta">Journal of Diabetes Science and Technology</p>
+          <div class="row">
+            <a class="btn" href="https://journals.sagepub.com/doi/10.1177/19322968251341264" target="_blank" rel="noreferrer">View publication</a>
+          </div>
+        </article>
+        <article class="card span6">
+          <h3 class="projTitle">Structure-Based Computational Analysis of Insulin Receptor Interactions</h3>
+          <p class="projMeta">bioRxiv preprint</p>
+          <div class="row">
+            <a class="btn" href="https://www.biorxiv.org/content/10.1101/2024.09.06.611694v1" target="_blank" rel="noreferrer">View preprint</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="leadership" class="section">
+      <div class="sectionHeader">
+        <h2>Leadership</h2>
+        <p>Brief and concrete</p>
+      </div>
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">Youth Medical Association — Director of Content</h3>
+          <ul>
+            <li>Led content analytics for 30K+ monthly viewers and delivered biweekly presentations to 100+ members</li>
+            <li>Coordinated 30+ educational tours across 30 chapters and supported cross-team operations</li>
+            <li>Raised $2.5K+ for health causes; earned Gold Level PVSA (509 hours)</li>
+          </ul>
+          <div class="row">
+            <a class="btn" href="https://www.yma.institute/about/meet-our-team" target="_blank" rel="noreferrer">Team page</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Youth Academic Initiative — Director of Logistics & Curriculum</h3>
+          <ul>
+            <li>Coordinated lesson plans, budgets, and schedules for 150+ SHSAT students with ~15% improvement after the program</li>
+            <li>Led 3 teams of 15 to run weekly classes, develop 20 lesson curricula, and respond to 60+ parent inquiries</li>
+          </ul>
+          <p class="projMeta" style="margin-top:10px">
+            I treat this like a long-term build: the goal is consistency, small iterations, and measurable student outcomes.
+          </p>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Global Health Leaders Conference (Johns Hopkins) — Student Speaker</h3>
+          <ul>
+            <li>Presented CGM research to 200+ attendees; earned Outstanding Speaker Award</li>
+          </ul>
+          <div class="row">
+            <a class="btn" href="https://www.youtube.com/watch?v=ymRuZrz38ug" target="_blank" rel="noreferrer">Talk recording</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="sectionHeader">
+        <h2>Skills</h2>
+        <p>From my resume + projects</p>
+      </div>
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">Programming & Data</h3>
+          <div class="tagRow" style="margin-top:12px">
+            <span class="tag">Python (pandas, NumPy)</span>
+            <span class="tag">R (tidyverse)</span>
+            <span class="tag">R Shiny</span>
+            <span class="tag">Java (OOP)</span>
+            <span class="tag">SQL</span>
+            <span class="tag">MATLAB</span>
+          </div>
+        </article>
+        <article class="card span6">
+          <h3 class="projTitle">Tools</h3>
+          <div class="tagRow" style="margin-top:12px">
+            <span class="tag">Excel (pivot tables)</span>
+            <span class="tag">Apache POI</span>
+            <span class="tag">RStudio</span>
+            <span class="tag">Microsoft Office</span>
+            <span class="tag">Git/GitHub</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">BioRender</span>
+            <span class="tag">Adobe Photoshop</span>
+          </div>
+        </article>
+        <article class="card span12">
+          <h3 class="projTitle">Modeling, Visualization, and Hardware</h3>
+          <div class="tagRow" style="margin-top:12px">
+            <span class="tag">AlphaFold Multimer</span>
+            <span class="tag">VMD</span>
+            <span class="tag">CAD</span>
+            <span class="tag">CAE</span>
+            <span class="tag">3D printing</span>
+            <span class="tag">prototyping</span>
+            <span class="tag">testing</span>
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">GPIO</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="sectionHeader">
+        <h2>Contact</h2>
+        <p>Fastest ways to reach me</p>
+      </div>
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">Email</h3>
+          <p class="projMeta"><a href="mailto:victli@umich.edu">victli@umich.edu</a></p>
+          <div class="row">
+            <a class="btn btnPrimary" href="mailto:victli@umich.edu">Email me</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Links</h3>
+          <div class="row">
+            <a class="btn" href="https://github.com/Victor-2007" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/victor-li-444b591b9" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="resume.pdf" target="_blank" rel="noreferrer">Resume PDF</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© <span id="year"></span> Victor Li</div>
+      <div>Hosted on GitHub Pages</div>
+    </div>
+  </main>
+
+  <script>
+    // Default to light theme, but remember toggles
+    const storageKey = 'vl_theme';
+    const root = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+
+    function setTheme(theme){
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem(storageKey, theme);
+    }
+
+    const saved = localStorage.getItem(storageKey);
+    if(saved === 'dark' || saved === 'light') setTheme(saved);
+    else setTheme('light');
+
+    btn.addEventListener('click', () => {
+      const cur = root.getAttribute('data-theme');
+      setTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Image fallback: if images are not inside /assets, fall back to repo root.
+    // This keeps the page looking clean even if files are uploaded in the wrong place.
+    document.querySelectorAll('img[data-fallback]').forEach(img => {
+      img.addEventListener('error', () => {
+        const fb = img.getAttribute('data-fallback');
+        if (!fb) return;
+        img.src = fb;
+      }, { once: true });
+    });
+  </script>
+</body>
+</html>
