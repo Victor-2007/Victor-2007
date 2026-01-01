@@ -1,0 +1,1872 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Victor Li — selected projects, publications, and code samples." />
+
+  <meta property="og:title" content="Victor Li — Portfolio" />
+  <meta property="og:description" content="Projects: CGM analytics + Shiny dashboard, INDIGO-MTB synergy modeling, protein interaction modeling, device CAD." />
+  <meta property="og:type" content="website" />
+
+  <title>Victor Li | Portfolio</title>
+
+  <style>
+    :root{
+      --max: 1000px;
+
+      /* Light (default) */
+      --bg: #ffffff;
+      --surface: #f6f7f9;
+      --surface2: #eef0f4;
+      --text: #0b1220;
+      --muted: #4b5563;
+      --line: rgba(17,24,39,.12);
+      --shadow: 0 10px 25px rgba(17,24,39,.08);
+      --accent: #111827;         /* neutral, not blue */
+      --accent2: #0b1220;
+      --focus: rgba(17,24,39,.22);
+    }
+    html[data-theme="dark"]{
+      --bg: #0b0c0f;
+      --surface: #111318;
+      --surface2: #181b22;
+      --text: #f3f4f6;
+      --muted: #b6bcc6;
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+      --accent: #f3f4f6;
+      --accent2: #ffffff;
+      --focus: rgba(243,244,246,.22);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .navInner{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:12px 0;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      text-decoration:none;
+    }
+    .dot{width:9px; height:9px; border-radius:99px; background:var(--accent); opacity:.85}
+    .brand strong{font-size:14px; letter-spacing:.2px}
+
+    .navLinks{display:flex; gap:6px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+    .navLinks a, .navLinks button{
+      font-size:13px;
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      background:transparent;
+      cursor:pointer;
+    }
+    .navLinks a:hover, .navLinks button:hover{
+      color:var(--text);
+      background: color-mix(in srgb, var(--surface) 70%, transparent);
+      border-color: var(--line);
+    }
+    .navLinks button:focus-visible, a:focus-visible{
+      outline:2px solid var(--focus);
+      outline-offset:2px;
+    }
+
+    /* Hero */
+    header{
+      padding:34px 0 18px;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns: 1.4fr .9fr;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width: 860px){
+      .hero{grid-template-columns: 1fr}
+    }
+    h1{margin:0; font-size:34px; letter-spacing:-.4px}
+    .sub{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:15px;
+      max-width:60ch;
+    }
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      color:var(--text);
+      text-decoration:none;
+      font-size:13px;
+      box-shadow: 0 1px 0 rgba(0,0,0,.05);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{
+      background: var(--accent);
+      border-color: color-mix(in srgb, var(--accent) 82%, var(--line));
+      color: var(--bg);
+    }
+    html[data-theme="dark"] .btn.primary{color:#0b0c0f}
+
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 98%, transparent), color-mix(in srgb, var(--surface2) 90%, transparent));
+      border-radius:16px;
+      padding:16px;
+      box-shadow: var(--shadow);
+    }
+    .miniCard h2{margin:0 0 6px; font-size:13px; letter-spacing:.2px; text-transform:uppercase; color:var(--muted)}
+    .miniCard p{margin:0; color:var(--muted); font-size:14px}
+    .miniCard .kv{margin-top:10px; display:grid; gap:8px}
+    .kv div{display:flex; gap:10px; align-items:flex-start}
+    .kv span{color:var(--muted); font-size:13px}
+    .kv strong{font-size:13px}
+
+    /* Sections */
+    .section{padding:22px 0}
+    .sectionHeader{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:10px}
+    .sectionHeader h2{margin:0; font-size:18px; letter-spacing:-.2px}
+    .sectionHeader p{margin:0; color:var(--muted); font-size:13px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+    .span12{grid-column: span 12}
+    .span6{grid-column: span 6}
+    .span4{grid-column: span 4}
+    .span8{grid-column: span 8}
+    @media (max-width: 860px){
+      .span6,.span4,.span8{grid-column: span 12}
+    }
+
+    .projTitle{margin:0; font-size:15px}
+    .projMeta{margin:8px 0 0; color:var(--muted); font-size:13px}
+    ul{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13.5px}
+    li{margin:6px 0}
+
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .tag{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      background: color-mix(in srgb, var(--surface2) 65%, transparent);
+      white-space:nowrap;
+    }
+
+    /* Details / accordions */
+    details{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      padding:10px 12px;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:13.5px;
+      color:var(--text);
+    }
+    summary::-webkit-details-marker{display:none}
+    summary .hint{color:var(--muted); font-size:12px}
+    .detailsBody{margin-top:10px}
+
+    pre{
+      margin:10px 0 0;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: color-mix(in srgb, var(--surface2) 85%, transparent);
+      overflow:auto;
+      font-size:12.5px;
+      line-height:1.45;
+    }
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace}
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 640px){
+      .gallery{grid-template-columns: 1fr}
+    }
+    figure{margin:0}
+    img{
+      width:100%;
+      height:auto;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: var(--surface2);
+      display:block;
+    }
+    figcaption{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:12.5px;
+    }
+
+    /* Footer */
+    footer{
+      padding:22px 0 30px;
+      color:var(--muted);
+      font-size:13px;
+      border-top:1px solid var(--line);
+      margin-top:10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="wrap">
+      <div class="navInner">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="dot" aria-hidden="true"></span>
+          <strong>Victor Li</strong>
+        </a>
+
+        <div class="navLinks">
+          <a href="#projects">Projects</a>
+          <a href="#publications">Publications</a>
+                    <a href="#code">Code</a>
+          <a href="#skills">Skills</a>
+          <a href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+          <button id="themeToggle" type="button" aria-label="Toggle theme">Theme</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="top" class="wrap">
+    <header>
+      <div class="hero">
+        <div>
+          <h1>Biomedical Engineering student</h1>
+          <p class="sub">
+            I work on biomedical data analysis, computational biology, and practical engineering builds.
+            This page highlights a few projects, publications, and code samples you can skim quickly.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="resume.pdf" target="_blank" rel="noreferrer">Open resume (PDF)</a>
+            <a class="btn" href="https://github.com/Victor-2007" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href="mailto:victli@umich.edu">Email</a>
+          </div>
+        </div>
+
+        <aside class="card miniCard">
+          <h2>Quick context</h2>
+          <p>University of Michigan (B.S.E. BME, expected 2028)</p>
+          <div class="kv">
+            <div><strong>Focus</strong><span>CGM analytics, drug-synergy modeling (INDIGO‑MTB), protein interaction modeling, device CAD</span></div>
+            <div><strong>Tooling</strong><span>Python, R, MATLAB, Java, Excel/Apache POI, Git</span></div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+      <div class="sectionHeader">
+        <h2>Projects</h2>
+        <p>Selected work with direct links</p>
+      </div>
+
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">CGM time-series analytics + R Shiny dashboard (UCLA & NSF–MPS)</h3>
+          <p class="projMeta">R analysis pipeline + interactive dashboard for exploring long-term glycemic patterns</p>
+          <div class="tags">
+            <span class="tag">R</span>
+            <span class="tag">tidyverse</span>
+            <span class="tag">Shiny</span>
+            <span class="tag">time-series</span>
+          </div>
+          <ul>
+            <li>Analyzed 2.1M+ continuous glucose monitoring readings and built reproducible summary tables/plots</li>
+            <li>Shipped 30+ interactive visualizations for collaborators to explore trends and stratified comparisons</li>
+            <li>Managed a shared GitHub workflow (version control, reviews, merge conflict resolution)</li>
+          </ul>
+          <div class="ctaRow" style="margin-top:12px">
+            <a class="btn" href="https://bowenz.shinyapps.io/cgm_long-term_glycemic_patterns/" target="_blank" rel="noreferrer">Dashboard</a>
+            <a class="btn" href="https://journals.sagepub.com/doi/10.1177/19322968251341264" target="_blank" rel="noreferrer">Publication</a>
+            <a class="btn" href="https://www.youtube.com/watch?v=ymRuZrz38ug" target="_blank" rel="noreferrer">Talk</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">INDIGO‑MTB: drug-synergy prediction pipeline (Chandrasekaran Lab)</h3>
+          <p class="projMeta">MATLAB workflow for ComBat normalization, phenotype generation, training, and 2‑/3‑/4‑way predictions</p>
+          <div class="tags">
+            <span class="tag">MATLAB</span>
+            <span class="tag">ComBat</span>
+            <span class="tag">ML</span>
+            <span class="tag">bioinformatics</span>
+          </div>
+          <ul>
+            <li>Screened 100,000+ drug combinations and converted outputs into ranked shortlists for follow-up testing</li>
+            <li>Built correlation and significance tables (Pearson/Spearman with p-values and BH‑FDR)</li>
+            <li>Automated 4‑drug predictions anchored on EHW4 across a Top‑35 shortlist (batched for memory safety)</li>
+          </ul>
+          <div class="ctaRow" style="margin-top:12px">
+            <a class="btn" href="#code">Open pipeline snippets</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Protein interaction modeling (inceptor–insulin receptor)</h3>
+          <p class="projMeta">AlphaFold‑Multimer modeling + docking workflow, with Java tooling to standardize structural outputs</p>
+          <div class="tags">
+            <span class="tag">AlphaFold Multimer</span>
+            <span class="tag">PDB</span>
+            <span class="tag">Java</span>
+            <span class="tag">Apache POI</span>
+            <span class="tag">VMD</span>
+          </div>
+          <ul>
+            <li>Modeled the complex, identified candidate interface residues, and supported downstream docking analysis</li>
+            <li>Wrote Java parsers that convert PDB outputs into structured Excel tables for residue proximity screening</li>
+            <li>Worked with high-dimensional exports (e.g., 100K+ columns) for sensitivity checks and reporting</li>
+          </ul>
+          <div class="ctaRow" style="margin-top:12px">
+            <a class="btn" href="https://www.biorxiv.org/content/10.1101/2024.09.06.611694v1" target="_blank" rel="noreferrer">Preprint</a>
+            <a class="btn" href="#code">Code samples</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Bedside Buddy: attachable dorm bedside storage (CAD + prototype testing)</h3>
+          <p class="projMeta">Designed a modular bedside cabinet for UMich bedframes using the bunking pin-hole interface</p>
+          <div class="tags">
+            <span class="tag">CAD</span>
+            <span class="tag">CAE</span>
+            <span class="tag">prototyping</span>
+            <span class="tag">testing</span>
+          </div>
+          <ul>
+            <li>Iterated through multiple CAD/CAE revisions and a modular 3D‑printed prototype with swappable parts</li>
+            <li>Designed for tool-less install and non-marring attachment by indexing into existing bedframe pin holes</li>
+            <li>Ran basic fit and stability checks (setup time, load/deflection sanity checks, user feedback)</li>
+          </ul>
+
+          <details style="margin-top:12px">
+            <summary><span>Photos</span><span class="hint">collapsed by default</span></summary>
+            <div class="detailsBody">
+              <div class="gallery">
+                <figure>
+                  <img src="assets/BedsideBuddySketch.png" alt="Bedside Buddy sketch" />
+                  <figcaption>Early sketch showing modular sections and pin-hole interface</figcaption>
+                </figure>
+                <figure>
+                  <img src="assets/CadModelBedsideBuddy.png" alt="Bedside Buddy CAD exploded view" />
+                  <figcaption>Exploded CAD view of modular parts</figcaption>
+                </figure>
+              </div>
+              <p class="projMeta" style="margin-top:10px">Note: place these images in <code>assets/</code> in the repo so the links work</p>
+            </div>
+          </details>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">PeriOperative warming device firmware (MHEAL)</h3>
+          <p class="projMeta">Raspberry Pi control software with relay safety interlocks, touchscreen UI, and logging</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">GPIO</span>
+            <span class="tag">safety</span>
+          </div>
+          <ul>
+            <li>Implemented relay control logic, UI flows, alerts, and telemetry logging for bench testing</li>
+            <li>Bench-tested sensors and heating profiles and documented recommended thresholds</li>
+            <li>Maintained onboarding docs so new team members can reproduce setup and tests</li>
+          </ul>
+        </article>
+
+        <div class="span12" style="margin-top:6px; display:flex; align-items:flex-end; justify-content:space-between; gap:12px">
+          <h3 style="margin:0; font-size:15px; letter-spacing:-.2px">Leadership & community</h3>
+          <p style="margin:0; color:var(--muted); font-size:13px">Long-running commitments outside the lab</p>
+        </div>
+
+        <article class="card span6">
+          <h3 class="projTitle">Director of Content — Youth Medical Association</h3>
+          <p class="projMeta">Health education programming and outreach</p>
+          <ul>
+            <li>Led and analyzed outreach for 30K+ monthly viewers and delivered biweekly health presentations to 100+ members</li>
+            <li>Coordinated 30+ educational tours and managed logistics across 30 global chapters and multiple teams</li>
+            <li>Raised $2.5K+ for health causes and contributed to NYC youth health education initiatives</li>
+          </ul>
+          <div class="ctaRow" style="margin-top:12px">
+            <a class="btn" href="https://www.yma.institute/about/meet-our-team" target="_blank" rel="noreferrer">Team page</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Director of Logistics & Curriculum — Youth Academic Initiative (YAI)</h3>
+          <p class="projMeta">Student-run SHSAT tutoring program I help organize and run each week</p>
+          <ul>
+            <li>Coordinated lesson plans, budgets, and schedules for 150+ SHSAT students seeing 15% improvement after the program</li>
+            <li>Led 3 teams of 15 to run weekly classes, develop 20 lesson curricula, and respond to 60+ parent inquiries</li>
+          </ul>
+        </article>
+
+        <article class="card span12">
+          <h3 class="projTitle">Speaker — Global Health Leaders Conference (Johns Hopkins)</h3>
+          <p class="projMeta">Presented CGM research to 200+ attendees and received an Outstanding Speaker Award</p>
+          <div class="ctaRow" style="margin-top:12px">
+            <a class="btn" href="https://www.youtube.com/watch?v=ymRuZrz38ug" target="_blank" rel="noreferrer">Talk recording</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" class="section">
+      <div class="sectionHeader">
+        <h2>Publications & talks</h2>
+        <p>Direct links</p>
+      </div>
+
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">Temporal Glycemic Patterns in Type 1 and Type 2 Diabetes</h3>
+          <p class="projMeta">Journal of Diabetes Science and Technology</p>
+          <div class="ctaRow" style="margin-top:12px">
+            <a class="btn" href="https://journals.sagepub.com/doi/10.1177/19322968251341264" target="_blank" rel="noreferrer">Journal page</a>
+            <a class="btn" href="https://bowenz.shinyapps.io/cgm_long-term_glycemic_patterns/" target="_blank" rel="noreferrer">Dashboard</a>
+            <a class="btn" href="https://www.youtube.com/watch?v=ymRuZrz38ug" target="_blank" rel="noreferrer">Talk recording</a>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Structure-Based Computational Analysis of Interactions Between Insulin Receptor and Inceptor</h3>
+          <p class="projMeta">bioRxiv preprint</p>
+          <div class="ctaRow" style="margin-top:12px">
+            <a class="btn" href="https://www.biorxiv.org/content/10.1101/2024.09.06.611694v1" target="_blank" rel="noreferrer">Preprint</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Code -->
+    <section id="code" class="section">
+      <div class="sectionHeader">
+        <h2>Code samples</h2>
+        <p>Collapsed by default</p>
+      </div>
+
+      <details>
+        <summary><span>Java utilities (EMHS): PDB-to-Excel residue proximity screening</span><span class="hint">3 scripts + explanation</span></summary>
+        <div class="detailsBody">
+          <p class="projMeta">
+            These scripts were used to parse structural exports, label residues within a distance threshold, and
+            summarize agreement across multiple modeled structures. Paths are written as relative examples so they
+            can be reused on any machine.
+          </p>
+
+          <details>
+            <summary><span>1) readingExcel.java — mark Molecule B residues that are close to Molecule C</span><span class="hint">Apache POI</span></summary>
+            <div class="detailsBody">
+              <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Labels Molecule B rows as Yes/No if any Molecule C row is within a threshold distance.
+ *
+ * Expected sheet format (single sheet):
+ * - Coordinates (x,y,z) in columns G,H,I (0-index 6,7,8)
+ * - Molecule B rows: 2..870  (0-index 1..869)
+ * - Molecule C rows: 871..1799 (0-index 870..1798)
+ */
+public class readingExcel {
+
+  public static void main(String[] args) throws IOException {
+    String excelFilePath = "data/CA5.xlsx";
+    double thresholdAngstrom = 10.0;
+
+    try (FileInputStream inputstream = new FileInputStream(excelFilePath);
+         XSSFWorkbook workbook = new XSSFWorkbook(inputstream)) {
+
+      XSSFSheet sheet = workbook.getSheetAt(0);
+      int rows = sheet.getLastRowNum();
+
+      // Add header
+      XSSFRow headerRow = sheet.getRow(0);
+      XSSFCell headerCell = headerRow.createCell(12, CellType.STRING);
+      headerCell.setCellValue("Interest");
+
+      for (int i = 1; i < 870; i++) { // Molecule B: rows 2..870
+        XSSFRow rowB = sheet.getRow(i);
+        double xB = rowB.getCell(6).getNumericCellValue();
+        double yB = rowB.getCell(7).getNumericCellValue();
+        double zB = rowB.getCell(8).getNumericCellValue();
+
+        boolean isOfInterest = false;
+
+        for (int j = 870; j <= rows; j++) { // Molecule C: rows 871..end
+          XSSFRow rowC = sheet.getRow(j);
+          double xC = rowC.getCell(6).getNumericCellValue();
+          double yC = rowC.getCell(7).getNumericCellValue();
+          double zC = rowC.getCell(8).getNumericCellValue();
+
+          double dx = xC - xB, dy = yC - yB, dz = zC - zB;
+          double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+          if (distance < thresholdAngstrom) {
+            isOfInterest = true;
+            break;
+          }
+        }
+
+        XSSFCell interestCell = rowB.createCell(12, CellType.STRING);
+        interestCell.setCellValue(isOfInterest ? "Yes" : "No");
+      }
+
+      try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
+        workbook.write(outputStream);
+      }
+
+      System.out.println("Done");
+    }
+  }
+}
+</code></pre>
+              <p class="projMeta">
+                Explanation: for each residue in Molecule B, the script scans all Molecule C residues and computes Euclidean distance
+                between their coordinates. If any partner residue is within a chosen cutoff (10 Å here), it labels that B-residue as
+                “Interest = Yes” in a new column. This makes it easy to filter likely interface candidates directly in Excel.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span>2) SecondMoleculeInterest.java — mark Molecule C residues close to Molecule B</span><span class="hint">reverse scan</span></summary>
+            <div class="detailsBody">
+              <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Reverse scan: labels Molecule C rows as Yes/No if any Molecule B row is within a distance threshold.
+ * Writes results to a new output file so the original sheet stays intact.
+ */
+public class SecondMoleculeInterest {
+
+  public static void main(String[] args) throws IOException {
+    String excelFilePath = "data/CA5.xlsx";
+    String outputFilePath = "data/CA5_Updated.xlsx";
+    double thresholdAngstrom = 10.0;
+
+    try (FileInputStream inputstream = new FileInputStream(excelFilePath);
+         XSSFWorkbook workbook = new XSSFWorkbook(inputstream)) {
+
+      XSSFSheet sheet = workbook.getSheetAt(0);
+      int rows = sheet.getLastRowNum();
+
+      for (int i = 870; i <= rows; i++) { // Molecule C: rows 871..end
+        XSSFRow rowC = sheet.getRow(i);
+        double xC = rowC.getCell(6).getNumericCellValue();
+        double yC = rowC.getCell(7).getNumericCellValue();
+        double zC = rowC.getCell(8).getNumericCellValue();
+
+        boolean isOfInterest = false;
+
+        for (int j = 1; j < 870; j++) { // Molecule B: rows 2..870
+          XSSFRow rowB = sheet.getRow(j);
+          double xB = rowB.getCell(6).getNumericCellValue();
+          double yB = rowB.getCell(7).getNumericCellValue();
+          double zB = rowB.getCell(8).getNumericCellValue();
+
+          double dx = xB - xC, dy = yB - yC, dz = zB - zC;
+          double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+          if (distance < thresholdAngstrom) {
+            isOfInterest = true;
+            break;
+          }
+        }
+
+        XSSFCell interestCell = rowC.getCell(12);
+        if (interestCell == null) interestCell = rowC.createCell(12, CellType.STRING);
+        interestCell.setCellValue(isOfInterest ? "Yes" : "No");
+      }
+
+      try (FileOutputStream outputStream = new FileOutputStream(outputFilePath)) {
+        workbook.write(outputStream);
+      }
+
+      System.out.println("New file created: " + outputFilePath);
+    }
+  }
+}
+</code></pre>
+              <p class="projMeta">
+                Explanation: same idea as the first script, but it flips the direction of the scan so you can label Molecule C residues
+                based on proximity to Molecule B. Writing to a new file keeps the original workbook unchanged for comparison.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span>3) probability.java — summarize “Yes” across multiple modeled structures</span><span class="hint">merge sheets</span></summary>
+            <div class="detailsBody">
+              <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Loads multiple model workbooks (each with an "Interest" column),
+ * counts how many models flagged each row as "Yes", and writes a compact label
+ * to an output workbook (e.g., "3 MODEL125" means 3 models: 1,2,5).
+ */
+public class probability {
+
+  public static void main(String[] args) throws IOException {
+
+    String[] excelFilePaths = {
+      "data/CA1_Updated.xlsx",
+      "data/CA2_Updated.xlsx",
+      "data/CA3_Updated.xlsx",
+      "data/CA4_Updated.xlsx",
+      "data/CA5_Updated.xlsx",
+      "data/CAX2.xlsx" // output workbook to write into
+    };
+
+    Map<String, XSSFSheet> sheets = new HashMap<>();
+    Map<String, XSSFWorkbook> workbooks = new HashMap<>();
+
+    for (String path : excelFilePaths) {
+      try (FileInputStream in = new FileInputStream(path)) {
+        XSSFWorkbook wb = new XSSFWorkbook(in);
+        XSSFSheet sheet = wb.getSheetAt(0);
+
+        String fileName = new java.io.File(path).getName().replace(".xlsx", "");
+        sheets.put(fileName, sheet);
+        workbooks.put(fileName, wb);
+
+        System.out.println("Loaded sheet from file: " + fileName);
+      }
+    }
+
+    XSSFSheet outSheet = sheets.get("CAX2");
+    if (outSheet == null) throw new IllegalStateException("CAX2 sheet not loaded");
+
+    for (int rowNum = 1; rowNum <= 1799; rowNum++) {
+      int yesCount = 0;
+      StringBuilder modelNumbers = new StringBuilder();
+
+      for (String sheetName : sheets.keySet()) {
+        if (sheetName.equals("CAX2")) continue;
+
+        XSSFSheet sheet = sheets.get(sheetName);
+        XSSFRow row = sheet.getRow(rowNum);
+        if (row == null) continue;
+
+        XSSFCell interestCell = row.getCell(12); // "Interest"
+        if (interestCell != null && "yes".equalsIgnoreCase(interestCell.getStringCellValue())) {
+          yesCount++;
+          String modelNumber = sheetName.replaceAll("\\D+", ""); // digits only
+          modelNumbers.append(modelNumber);
+        }
+      }
+
+      XSSFRow outRow = outSheet.getRow(rowNum);
+      if (outRow == null) outRow = outSheet.createRow(rowNum);
+
+      XSSFCell probabilityCell = outRow.createCell(9, CellType.STRING); // "Probability"
+      probabilityCell.setCellValue(yesCount + " MODEL" + modelNumbers);
+    }
+
+    try (FileOutputStream out = new FileOutputStream("data/CAX2.xlsx")) {
+      workbooks.get("CAX2").write(out);
+    } finally {
+      for (XSSFWorkbook wb : workbooks.values()) wb.close();
+    }
+
+    System.out.println("All files processed and CAX2 updated.");
+  }
+}
+</code></pre>
+              <p class="projMeta">
+                Explanation: each AlphaFold-Multimer model produces a slightly different structure, so this script aggregates “Interest = Yes”
+                labels across multiple workbooks and writes a compact summary into a shared output sheet. That makes it easy to filter for
+                residues that appear consistently (e.g., 5/5 models) when defining a likely binding interface.
+              </p>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <details style="margin-top:12px">
+        <summary><span>MATLAB pipelines (INDIGO‑MTB): append → ComBat → predict, correlations, 4‑way Top‑35</span><span class="hint">nested</span></summary>
+        <div class="detailsBody">
+          <p class="projMeta">
+            These are representative pipeline scripts I used in my INDIGO‑MTB workflow (EHW4 append, ComBat correction, predictions, and
+            correlation analysis). Each block is collapsed so you can open only what you care about.
+          </p>
+
+          <details>
+            <summary><span>A) EHW4 append → ComBat → 2‑way predictions</span><span class="hint">authoritative script</span></summary>
+            <div class="detailsBody">
+              <pre><code>%% 0) Paths & logging
+baseDir = 'C:\Users\victo\OneDrive\Documents\MATLAB\Indigo';
+cd(baseDir); addpath(genpath(fullfile(baseDir,'Code')));
+dataDir = fullfile(baseDir,'Data'); outDir = fullfile(baseDir,'Deliverables');
+if ~exist(outDir,'dir'), mkdir(outDir); end
+diary(fullfile(outDir,'EHW4_ComBat_Log.txt')); diary on;
+
+%% 1) Load master matrix
+S = load(fullfile(dataDir,'averaged_data_new.mat'), ...
+    'averagedtbdata','mtb_expression_database_row_ids','mtb_expression_database_col_ids');
+X    = double(S.averagedtbdata);
+rows = string(S.mtb_expression_database_row_ids(:));
+cols = string(S.mtb_expression_database_col_ids(:));
+
+%% 2) Build EHW4 column from spreadsheet and append
+T = readtable(fullfile(dataDir,'EHW4 vs Mtb H37Rv_SW (1).xlsx'),'TextType','string');
+vars = string(T.Properties.VariableNames);
+gix  = find(contains(lower(vars),'gene'),1); if isempty(gix), gix = 1; end
+genes = string(T{:,gix});
+if any(strcmpi(vars,'logFC')), logFC = double(T.('logFC'));
+else
+  isNum = varfun(@isnumeric,T,'OutputFormat','uniform');
+  logFC = double(T.(vars(find(isNum,1))));
+end
+
+[U,~,ic] = unique(upper(genes)); valsU = accumarray(ic, logFC, [], @mean);
+new_col  = zeros(numel(rows),1);
+[tf,loc] = ismember(upper(U), upper(rows)); new_col(loc(tf)) = valsU(tf);
+new_col(~isfinite(new_col)) = 0;
+
+X2    = [X, new_col];
+cols2 = [cols; "EHW4"];
+
+%% 3) ComBat with single-sample batch workaround
+X2c = X2;
+for j=1:size(X2c,2)
+  c = X2c(:,j); m = median(c(~isnan(c))); if isnan(m), m=0; end
+  c(isnan(c)) = m; X2c(:,j) = c;
+end
+
+idxE = find(strcmpi(cols2,'EHW4'),1); E = X2c(:,idxE);
+epsJ = 1e-6 * max(1, std(E));
+Xtmp = [X2c, E + epsJ*randn(size(E))];
+colsT = [cols2; "EHW4_dup"];
+
+batch = ones(size(Xtmp,2),1); batch([idxE end]) = 2;
+normData_tmp = ComBat(Xtmp, batch, [], 1);
+normData = normData_tmp(:,1:end-1);
+cols_cb  = colsT(1:end-1);
+
+save(fullfile(dataDir,'normData_EHW4.mat'), 'normData','rows','cols_cb');
+
+%% 4) Phenotype and training + predictions
+z = 2;
+[phenotype_data, phenotype_labels] = process_transcriptome_tb(normData, cellstr(rows), z);
+idmap0 = readtable(fullfile(dataDir,'identifiers_match_tb.xlsx'),'TextType','string');
+idmap0.Properties.VariableNames(1:2) = {'DrugID','ColLabel'};
+missing = setdiff(cols_cb, string(idmap0.ColLabel),'stable');
+if ~isempty(missing)
+  addRows = table(missing, missing, 'VariableNames', {'DrugID','ColLabel'});
+  idmap = [idmap0; addRows];
+else
+  idmap = idmap0;
+end
+idmapFile = fullfile(dataDir,'identifiers_match_tb_completed.xlsx');
+writetable(idmap, idmapFile);
+
+[train_scores, train_pairs] = xlsread(fullfile(dataDir,'tb_training.xlsx'));
+[~, ~, ~, modelNew, ~, ~] = indigo_train_tb([], idmapFile, [], 1, ...
+  phenotype_data, phenotype_labels, cellstr(cols_cb), train_scores, train_pairs);
+
+Tmap = readtable(idmapFile,'TextType','string'); Tmap.Properties.VariableNames(1:2)={'DrugID','ColLabel'};
+keep  = ismember(Tmap.ColLabel, cols_cb); drugIDs = unique(Tmap.DrugID(keep),'stable');
+partners = setdiff(drugIDs, "EHW4", 'stable');
+pairs = [repmat({'EHW4'}, numel(partners),1), cellstr(partners(:))];
+
+[pI2, pS2] = indigo_predict_tb(modelNew, pairs, 2, idmapFile, [], 1, phenotype_data, phenotype_labels, cellstr(cols_cb));
+Tout = cell2table(pI2,'VariableNames',{'DrugA','DrugB'}); Tout.Score = pS2;
+writetable(Tout, fullfile(outDir,'EHW4_2way_from_ComBat.xlsx'));
+
+diary off;
+</code></pre>
+              <p class="projMeta">
+                Explanation: this script aligns a new condition vector (EHW4) to the MTB master gene list, appends it as a column,
+                uses ComBat to correct batch effects (with a single-sample workaround), builds the z-threshold phenotype, trains INDIGO‑MTB,
+                and exports 2‑way EHW4 predictions to Excel.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span>B) Correlation analysis (Pearson + Spearman with p-values)</span><span class="hint">rank similarity</span></summary>
+            <div class="detailsBody">
+              <pre><code>%% Load ComBat-normalized matrix
+baseDir='C:\Users\victo\OneDrive\Documents\MATLAB\Indigo';
+cd(baseDir); addpath(genpath(fullfile(baseDir,'Code')));
+dataDir=fullfile(baseDir,'Data'); outDir=fullfile(baseDir,'Deliverables');
+S = load(fullfile(dataDir,'normData_EHW4.mat'));  % normData, rows, cols_cb
+Xcb = double(S.normData);
+cols = string(S.cols_cb(:));
+
+% Anchor on EHW4
+iE = find(strcmpi(cols,'EHW4'),1);
+e  = Xcb(:, iE);
+
+nCond = numel(cols);
+rhoP  = zeros(nCond,1);  pP  = zeros(nCond,1);   % Pearson
+rhoS  = zeros(nCond,1);  pS  = zeros(nCond,1);   % Spearman
+
+for j = 1:nCond
+  [rhoP(j), pP(j)] = corr(e, Xcb(:,j), 'Type','Pearson',  'Rows','pairwise');
+  [rhoS(j), pS(j)] = corr(e, Xcb(:,j), 'Type','Spearman', 'Rows','pairwise');
+end
+
+Tpear = table(cols, rhoP, pP, 'VariableNames', {'Condition','Pearson_r','p_value'});
+Tpear = sortrows(Tpear, 'Pearson_r', 'descend');
+
+Tspe  = table(cols, rhoS, pS, 'VariableNames', {'Condition','Spearman_rho','p_value'});
+Tspe  = sortrows(Tspe, 'Spearman_rho', 'descend');
+
+writetable(Tpear, fullfile(outDir,'EHW4_similarity_pearsonWithP.xlsx'));
+writetable(Tspe,  fullfile(outDir,'EHW4_similarity_by_rankcorr_withP.xlsx'));
+</code></pre>
+              <p class="projMeta">
+                Explanation: computes similarity between EHW4 and every other condition using both Pearson (magnitude/linearity) and Spearman
+                (rank/ordering). With thousands of genes per profile, p-values can be very small even for modest correlations, so I treat the
+                correlation coefficient as the main effect size and use FDR when needed.
+              </p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span>C) 4‑way EHW4 predictions across a Top‑35 shortlist</span><span class="hint">nchoosek + batching</span></summary>
+            <div class="detailsBody">
+              <pre><code>%% High-level outline (details omitted for brevity)
+% 1) Load normData_EHW4.mat and build phenotype at z=2
+% 2) Complete identifiers map and train on tb_training_plus_updated.xlsx
+% 3) Define Top-35 drug list, map to DrugIDs present
+% 4) Build all partner triplets: nchoosek(Top35, 3)
+% 5) Predict in batches with indigo_predict_tb(modelNew, quads, 4, ...)
+% 6) Export Deliverables\EHW4_4way_TOP35.xlsx
+</code></pre>
+              <p class="projMeta">
+                Explanation: generates every 4-drug combination that includes EHW4 + 3 drugs from a shortlist and runs predictions in batches
+                to keep memory usage stable. The exported table is formatted for quick sorting (lowest scores as most synergistic in MTB convention).
+              </p>
+            </div>
+          </details>
+
+          
+          <details style="margin-top:10px">
+            <summary><span>Full workflow notes (markdown)</span><span class="hint">01 / 04 / 05 / 06</span></summary>
+            <div class="detailsBody">
+              <p class="projMeta">These are the reproducible writeups I use when rerunning the INDIGO‑MTB pipeline from a fresh MATLAB session.</p>
+
+              <details>
+                <summary><span>01 — EHW4 Append → ComBat → Predict</span><span class="hint">authoritative procedure</span></summary>
+                <div class="detailsBody">
+                  <pre><code># 01 — EHW4 Append → ComBat → Predict (Authoritative Procedure)
+**Generated:** 2025-10-15 01:02
+
+This guide is the canonical, *correct* approach for adding EHW4, batch‑correcting with ComBat, building the phenotype,
+training INDIGO‑MTB, and generating 2‑way predictions. It includes validation prints and troubleshooting.
+
+---
+
+## Overview (concepts)
+- **Master matrix**: genes × conditions (each column is a drug/condition profile).
+- **EHW4**: new LOGFC vector aligned to the master gene order; append as a new column.
+- **ComBat**: removes batch differences so EHW4 is comparable to legacy columns.
+- **Phenotype (barcode)**: z-thresholded indicator of which genes are notably perturbed per condition.
+- **Train &amp; Predict**: learn mapping from known drug–drug outcomes; score EHW4 vs all mapped drugs.
+
+---
+
+## Step‑by‑step MATLAB (fresh session)
+
+```matlab
+%% 0) Paths &amp; logging
+baseDir = &#x27;C:\Users\victo\OneDrive\Documents\MATLAB\Indigo&#x27;;
+cd(baseDir); addpath(genpath(fullfile(baseDir,&#x27;Code&#x27;)));
+dataDir = fullfile(baseDir,&#x27;Data&#x27;); outDir = fullfile(baseDir,&#x27;Deliverables&#x27;);
+if ~exist(outDir,&#x27;dir&#x27;), mkdir(outDir); end
+diary(fullfile(outDir,&#x27;EHW4_ComBat_Log.txt&#x27;)); diary on;
+fprintf(&#x27;=== EHW4 pipeline started %s ===\n&#x27;, datestr(now));
+
+%% 1) Load master matrix
+S = load(fullfile(dataDir,&#x27;averaged_data_new.mat&#x27;), ...
+    &#x27;averagedtbdata&#x27;,&#x27;mtb_expression_database_row_ids&#x27;,&#x27;mtb_expression_database_col_ids&#x27;);
+X    = double(S.averagedtbdata);
+rows = string(S.mtb_expression_database_row_ids(:));
+cols = string(S.mtb_expression_database_col_ids(:));
+fprintf(&#x27;Master: %d genes x %d conditions\n&#x27;, size(X,1), size(X,2));
+
+%% 2) Build EHW4 column from the spreadsheet
+T = readtable(fullfile(dataDir,&#x27;EHW4 vs Mtb H37Rv_SW (1).xlsx&#x27;),&#x27;TextType&#x27;,&#x27;string&#x27;);
+vars = string(T.Properties.VariableNames);
+gix  = find(contains(lower(vars),&#x27;gene&#x27;),1); if isempty(gix), gix = 1; end
+genes = string(T{:,gix});
+
+if any(strcmpi(vars,&#x27;logFC&#x27;)), logFC = double(T.(&#x27;logFC&#x27;));
+else
+    isNum = varfun(@isnumeric,T,&#x27;OutputFormat&#x27;,&#x27;uniform&#x27;); 
+    assert(any(isNum),&#x27;No numeric column found for logFC.&#x27;);
+    logFC = double(T.(vars(find(isNum,1))));
+end
+
+[U,~,ic] = unique(upper(genes)); valsU = accumarray(ic, logFC, [], @mean);
+new_col  = zeros(numel(rows),1);
+[tf,loc] = ismember(upper(U), upper(rows)); new_col(loc(tf)) = valsU(tf);
+new_col(~isfinite(new_col)) = 0;
+
+X2    = [X, new_col]; 
+cols2 = [cols; &quot;EHW4&quot;];
+fprintf(&#x27;After append: %d conditions (expect prev+1)\n&#x27;, numel(cols2));
+
+%% 3) ComBat with single-sample batch workaround
+% Impute NaN by column median (ComBat rejects NaN)
+X2c = X2;
+for j=1:size(X2c,2)
+    c = X2c(:,j); m = median(c(~isnan(c))); if isnan(m), m=0; end
+    c(isnan(c)) = m; X2c(:,j) = c;
+end
+
+idxE = find(strcmpi(cols2,&#x27;EHW4&#x27;),1); E = X2c(:,idxE);
+epsJ = 1e-6 * max(1, std(E));                  % tiny noise scale
+Xtmp = [X2c, E + epsJ*randn(size(E))];         % temporary duplicate
+colsT = [cols2; &quot;EHW4_dup&quot;];
+
+batch = ones(size(Xtmp,2),1); batch([idxE end]) = 2;
+normData_tmp = ComBat(Xtmp, batch, [], 1);     % parametric prior
+
+normData = normData_tmp(:,1:end-1);            % drop duplicate
+cols_cb  = colsT(1:end-1);
+save(fullfile(dataDir,&#x27;normData_EHW4.mat&#x27;), &#x27;normData&#x27;,&#x27;rows&#x27;,&#x27;cols_cb&#x27;);
+fprintf(&#x27;ComBat OK: %d genes x %d conditions\n&#x27;, size(normData,1), size(normData,2));
+
+%% 4) Phenotype (z=2) and name map
+z = 2;
+[phenotype_data, phenotype_labels] = process_transcriptome_tb(normData, cellstr(rows), z);
+idmap0 = readtable(fullfile(dataDir,&#x27;identifiers_match_tb.xlsx&#x27;),&#x27;TextType&#x27;,&#x27;string&#x27;);
+idmap0.Properties.VariableNames(1:2) = {&#x27;DrugID&#x27;,&#x27;ColLabel&#x27;};
+missing = setdiff(cols_cb, string(idmap0.ColLabel),&#x27;stable&#x27;);
+if ~isempty(missing)
+    addRows = table(missing, missing, &#x27;VariableNames&#x27;, {&#x27;DrugID&#x27;,&#x27;ColLabel&#x27;});
+    idmap = [idmap0; addRows];
+    key   = strcat(string(idmap.DrugID),&#x27;→&#x27;,string(idmap.ColLabel));
+    [~,k] = unique(key,&#x27;stable&#x27;); idmap = idmap(k,:);
+else
+    idmap = idmap0;
+end
+idmapFile = fullfile(dataDir,&#x27;identifiers_match_tb_completed.xlsx&#x27;);
+writetable(idmap, idmapFile);
+fprintf(&#x27;ID map coverage: %d/%d\n&#x27;, sum(ismember(cols_cb, string(idmap.ColLabel))), numel(cols_cb));
+
+%% 5) Train &amp; Predict (two‑way EHW4 vs all)
+[train_scores, train_pairs] = xlsread(fullfile(dataDir,&#x27;tb_training.xlsx&#x27;));
+[~, ~, ~, modelNew, ~, ~] = indigo_train_tb( ...
+    [], idmapFile, [], 1, ...
+    phenotype_data, phenotype_labels, cellstr(cols_cb), ...
+    train_scores, train_pairs);
+
+Tmap = readtable(idmapFile,&#x27;TextType&#x27;,&#x27;string&#x27;); Tmap.Properties.VariableNames(1:2)={&#x27;DrugID&#x27;,&#x27;ColLabel&#x27;};
+keep  = ismember(Tmap.ColLabel, cols_cb); drugIDs = unique(Tmap.DrugID(keep),&#x27;stable&#x27;);
+partners = setdiff(drugIDs, &quot;EHW4&quot;, &#x27;stable&#x27;);
+pairs = [repmat({&#x27;EHW4&#x27;}, numel(partners),1), cellstr(partners(:))];
+
+[pI2, pS2] = indigo_predict_tb(modelNew, pairs, 2, idmapFile, [], 1, phenotype_data, phenotype_labels, cellstr(cols_cb));
+Tout = cell2table(pI2,&#x27;VariableNames&#x27;,{&#x27;DrugA&#x27;,&#x27;DrugB&#x27;}); Tout.Score = pS2;
+outFile = fullfile(outDir,&#x27;EHW4_2way_from_ComBat.xlsx&#x27;); writetable(Tout, outFile);
+fprintf(&#x27;Wrote: %s  (rows=%d)\n&#x27;, outFile, height(Tout));
+
+diary off;
+```
+
+### Expected prints
+- “Master: 8539 genes × 248 conditions” (numbers may vary slightly)  
+- “After append: 249 conditions”  
+- “ComBat OK: 8539 × 249”  
+- “ID map coverage: 249/249”  
+- Two‑way table written under `Deliverables/`
+
+---
+
+## Troubleshooting
+- **ComBat errors about missing values** → Ensure the median-imputation loop ran; confirm all inputs are numeric.  
+- **Single‑sample batch failure** → Make sure the temporary duplicate (`EHW4_dup`) was added before ComBat and dropped afterward.  
+- **“Function not found”** → Re‑run `addpath(genpath(fullfile(baseDir,&#x27;Code&#x27;)))`; confirm `ComBat.m` and INDIGO MTB functions exist.  
+- **No negatives in MTB scores** → Per mentor guidance for MTB module, the 0–1 region indicates synergy; rely on relative ranking.  
+- **Row/label mismatch** → Open the completed ID map and confirm both `DrugID` and `ColLabel` entries for “EHW4” and partners.</code></pre>
+                </div>
+              </details>
+
+              <details>
+                <summary><span>04 — Correlation Analysis (EHW4)</span><span class="hint">Pearson + Spearman</span></summary>
+                <div class="detailsBody">
+                  <pre><code># 04_Correlation_Analysis_EHW4.md
+**Purpose:** Compute how similar each condition’s genome-wide profile is to **EHW4**, using both **Pearson** (linear) and **Spearman** (rank) correlation, and export ranked tables with **p‑values**. This follows the INDIGO‑MTB workflow you already ran; we **reuse** the previously saved ComBat‑normalized matrix so there is no re-normalization here.
+
+---
+
+## What you’ll get
+- `Deliverables/EHW4_similarity_pearsonWithP.xlsx` — Pearson r, p-values, sorted by r (desc).
+- `Deliverables/EHW4_similarity_by_rankcorr_withP.xlsx` — Spearman ρ, p-values, sorted by ρ (desc).
+- Optional FDR-corrected columns (Benjamini–Hochberg) to help judge significance when testing many conditions.
+
+**Interpretation (INDIGO‑MTB context):**
+- Larger **positive** correlation ⇒ the condition perturbs genes in a **similar** pattern to EHW4.
+- Spearman (rank) cares about **order**; Pearson cares about **exact magnitude and linearity**.
+- Very small p-values are **normal** with thousands of genes (large n): even modest correlations become significant. Use FDR to judge which are noteworthy after multiple testing.
+
+---
+
+## Prerequisites
+- You already created `Data/normData_EHW4.mat` when appending EHW4 and running ComBat.
+  - It should contain variables: `normData` (genes × conditions), `rows` (Rv gene IDs), `cols_cb` (condition labels that include `&quot;EHW4&quot;`).
+- Your INDIGO folder layout is the same as prior steps:
+  ```
+  Indigo/
+    Code/
+    Data/
+      normData_EHW4.mat
+      identifiers_match_tb.xlsx   (not required here, but kept for consistency)
+    Deliverables/                 (outputs go here)
+  ```
+
+---
+
+## Step 0 — Paths &amp; lightweight logging
+
+```matlab
+%% Step 0) Paths &amp; log
+baseDir = &#x27;C:\Users\victo\OneDrive\Documents\MATLAB\Indigo&#x27;;
+cd(baseDir); addpath(genpath(fullfile(baseDir,&#x27;Code&#x27;)));
+
+dataDir = fullfile(baseDir,&#x27;Data&#x27;);
+outDir  = fullfile(baseDir,&#x27;Deliverables&#x27;);
+if ~exist(outDir,&#x27;dir&#x27;), mkdir(outDir); end
+
+diary(fullfile(outDir,&#x27;Correlation_Log.txt&#x27;)); diary on;
+fprintf(&#x27;=== Correlation run started %s ===\n&#x27;, datestr(now));
+```
+
+**Why/what:** Makes MATLAB see your functions, defines input/output folders, and starts a rolling log so you can copy/paste sizes and sanity checks into emails.
+
+**Validate:** `pwd` shows your Indigo folder; `Deliverables/Correlation_Log.txt` is created.
+
+---
+
+## Step 1 — Load the ComBat-normalized matrix
+
+```matlab
+%% Step 1) Load ComBat-normalized matrix
+S = load(fullfile(dataDir,&#x27;normData_EHW4.mat&#x27;));  % must contain normData, rows, cols_cb
+assert(all(isfield(S, {&#x27;normData&#x27;,&#x27;rows&#x27;,&#x27;cols_cb&#x27;})), ...
+    &#x27;normData_EHW4.mat must contain normData, rows, cols_cb.&#x27;);
+
+Xcb   = double(S.normData);           % genes x conditions
+rows  = string(S.rows(:));            % Rv gene IDs (not used directly here)
+cols  = string(S.cols_cb(:));         % condition labels (must include &quot;EHW4&quot;)
+
+fprintf(&#x27;ComBat matrix: genes=%d, conditions=%d\n&#x27;, size(Xcb,1), size(Xcb,2));
+assert(any(strcmpi(cols,&#x27;EHW4&#x27;)), &#x27;EHW4 column not found in cols_cb.&#x27;);
+```
+
+**Why/what:** Reuses your standardized gene × condition matrix so all columns are comparable. We confirm that **EHW4** exists in the labels.
+
+**Validate:** Expect something like `genes=8539, conditions=249`.
+
+---
+
+## Step 2 — Anchor on EHW4 and compute Pearson &amp; Spearman (with p-values)
+
+```matlab
+%% Step 2) Correlation against EHW4 (Pearson &amp; Spearman) + p-values
+iE = find(strcmpi(cols,&#x27;EHW4&#x27;),1);
+e  = Xcb(:, iE);
+
+nCond = numel(cols);
+rhoP  = zeros(nCond,1);  pP  = zeros(nCond,1);   % Pearson
+rhoS  = zeros(nCond,1);  pS  = zeros(nCond,1);   % Spearman
+
+% Loop for clarity; vectorization adds complexity with little payoff here
+for j = 1:nCond
+    % &#x27;Rows&#x27;,&#x27;pairwise&#x27; safely ignores any NaNs that might linger
+    [rhoP(j), pP(j)] = corr(e, Xcb(:,j), &#x27;Type&#x27;,&#x27;Pearson&#x27;,  &#x27;Rows&#x27;,&#x27;pairwise&#x27;);
+    [rhoS(j), pS(j)] = corr(e, Xcb(:,j), &#x27;Type&#x27;,&#x27;Spearman&#x27;, &#x27;Rows&#x27;,&#x27;pairwise&#x27;);
+end
+
+% Assemble ranking tables
+Tpear = table(cols, rhoP, pP, &#x27;VariableNames&#x27;, {&#x27;Condition&#x27;,&#x27;Pearson_r&#x27;,&#x27;p_value&#x27;});
+Tpear = sortrows(Tpear, &#x27;Pearson_r&#x27;, &#x27;descend&#x27;);
+
+Tspe  = table(cols, rhoS, pS, &#x27;VariableNames&#x27;, {&#x27;Condition&#x27;,&#x27;Spearman_rho&#x27;,&#x27;p_value&#x27;});
+Tspe  = sortrows(Tspe, &#x27;Spearman_rho&#x27;, &#x27;descend&#x27;);
+
+% Quick peek
+disp(&#x27;Top 10 by Pearson:&#x27;);  disp(Tpear(1:min(10,height(Tpear)), :));
+disp(&#x27;Top 10 by Spearman:&#x27;); disp(Tspe(1:min(10,height(Tspe)),  :));
+```
+
+**Why/what:**  
+- **Pearson** detects linear similarity in magnitude and direction (sensitive to scale).  
+- **Spearman** detects monotonic similarity in the **ordering** of genes (robust to magnitude scaling and outliers).  
+- `p_value` from `corr` tests the null hypothesis “true correlation = 0.” With ~8.5k genes, p-values can be extremely small for modest correlations — that’s expected.
+
+**Validate:** Both tables have the same number of rows as `cols`. Top-10 display shows reasonable best matches (e.g., drugs mechanistically similar to EHW4).
+
+---
+
+## Step 3 — (Optional but recommended) Multiple‑testing correction
+
+```matlab
+%% Step 3) Add Benjamini–Hochberg FDR q-values (optional but recommended)
+Tpear.q_BH = benjamini_hochberg(Tpear.p_value);
+Tspe.q_BH  = benjamini_hochberg(Tspe.p_value);
+```
+
+**Why/what:** You compute hundreds of correlations at once; many tiny p-values are guaranteed even by chance. **FDR** controls the expected proportion of false positives among “discoveries”.
+
+**Validate:** `q_BH` is between 0 and 1; smaller is more significant. Sort by `q_BH` if you want the strongest matches under FDR.
+
+---
+
+## Step 4 — Save deliverables
+
+```matlab
+%% Step 4) Export ranked tables
+fP = fullfile(outDir, &#x27;EHW4_similarity_pearsonWithP.xlsx&#x27;);
+fS = fullfile(outDir, &#x27;EHW4_similarity_by_rankcorr_withP.xlsx&#x27;);
+
+writetable(Tpear, fP);
+writetable(Tspe,  fS);
+
+fprintf(&#x27;Saved: %s (rows=%d)\n&#x27;, fP, height(Tpear));
+fprintf(&#x27;Saved: %s (rows=%d)\n&#x27;, fS, height(Tspe));
+```
+
+**Why/what:** Creates two clean spreadsheets your mentor can sort/filter. Keep both; sometimes rank similarity (Spearman) is more biologically meaningful under assay shifts.
+
+**Validate:** Files exist in `Deliverables/`. Open and confirm the header row and that `Condition` matches your labels, including `&quot;EHW4&quot;`.
+
+---
+
+## Step 5 — (Optional) Visual quick checks
+
+```matlab
+%% Step 5) Quick QC plots (optional)
+% 1) Histogram of Pearson r
+figure; histogram(rhoP); title(&#x27;Pearson r vs EHW4&#x27;); xlabel(&#x27;r&#x27;); ylabel(&#x27;Count&#x27;);
+
+% 2) Pearson vs Spearman scatter
+figure; scatter(rhoP, rhoS, &#x27;.&#x27;); grid on;
+xlabel(&#x27;Pearson r&#x27;); ylabel(&#x27;Spearman \rho&#x27;); title(&#x27;EHW4 similarity: Pearson vs Spearman&#x27;);
+```
+
+**Why/what:** Sanity check: Are correlations all near zero? A visible positive tail is expected; the scatter shows whether magnitude and rank agreement align.
+
+**Validate:** Plots render without error; shapes look reasonable.
+
+---
+
+## Troubleshooting
+
+**“EHW4 column not found”**  
+- Confirm `cols_cb` actually contains `&quot;EHW4&quot;` in `normData_EHW4.mat`. If not, re-run the EHW4 append + ComBat step to regenerate that file.
+
+**“NaNs produced / size mismatch”**  
+- `corr(...,&#x27;Rows&#x27;,&#x27;pairwise&#x27;)` ignores NaNs. If you still see issues, `sum(isnan(Xcb),1)` should be near zero (ComBat inputs were median-imputed). If an entire column is constant (zero variance), Pearson will return `NaN`; Spearman usually still works.
+
+**“p-values look unrealistically small”**  
+- With ~8.5k genes, even r≈0.05 can be significant. Use **q_BH** to judge practical significance after multiple testing.
+
+**“Spearman and Pearson rank orders disagree”**  
+- That happens when magnitudes differ but the general ordering of genes is similar (or vice versa). In transcriptomic vs fitness cross-assays, **Spearman** often better reflects biology.
+
+**Reproducibility**  
+- This step is purely deterministic; no randomness here. If results differ across runs, check that you are loading the **same** `normData_EHW4.mat`.
+
+---
+
+## Local helper for FDR (put at the **end** of the same MATLAB script)
+
+```matlab
+function q = benjamini_hochberg(p)
+% benjamini_hochberg: compute BH FDR-adjusted q-values for a vector p (0..1).
+% Returns q of the same size as p.
+    p = p(:);
+    n = numel(p);
+    [ps, idx] = sort(p, &#x27;ascend&#x27;);
+    ranks = (1:n)&#x27;;
+    qtmp = (ps .* n) ./ ranks;
+    % enforce monotonicity from high ranks to low
+    for k = n-1:-1:1
+        qtmp(k) = min(qtmp(k), qtmp(k+1));
+    end
+    q = zeros(n,1); q(idx) = min(qtmp, 1);
+end
+```
+
+**Why/what:** Standard BH procedure to convert p-values into FDR q-values. Put this function **after** all the script code or save as `benjamini_hochberg.m` on your MATLAB path.
+
+---
+
+## End the log
+
+```matlab
+fprintf(&#x27;=== Correlation run completed %s ===\n&#x27;, datestr(now));
+diary off;
+```
+
+---
+
+## Quick checklist before you send results
+- [ ] `normData_EHW4.mat` loads and includes `&quot;EHW4&quot;`.
+- [ ] Exported **both** Pearson and Spearman tables to `Deliverables/`.
+- [ ] Top matches look plausible (e.g., mechanistically similar drugs cluster high).
+- [ ] (Optional) Included `q_BH` columns and mentioned FDR in your email.
+
+**Deliverable summary to paste:**
+&gt; Generated two EHW4 similarity tables: Pearson (r, p) and Spearman (ρ, p), with optional BH FDR q-values. With ~8.5k genes per profile, p-values are expectedly small; rank-based Spearman is robust across assay differences. Files are in `Deliverables/` with row counts equal to the number of conditions (≈249).</code></pre>
+                </div>
+              </details>
+
+              <details>
+                <summary><span>05 — FourWay Top‑35 (EHW4 4‑drug predictions)</span><span class="hint">batched</span></summary>
+                <div class="detailsBody">
+                  <pre><code># 05_FourWay_Top35 — EHW4 4‑Drug Predictions (INDIGO‑MTB)
+**Deliverable type:** Markdown (saved as `.txt`)  
+**Audience:** Engineer / researcher reproducing results from a fresh MATLAB session  
+**Goal:** Predict all **4‑way combinations** that include **EHW4 + any 3 drugs** from the **Top‑35 shortlist**; export a single Excel file and include validation &amp; troubleshooting.
+
+---
+
+## What you will produce
+- `Deliverables\EHW4_4way_TOP35.xlsx` — one row per 4‑drug combo; columns: `DrugA, DrugB, DrugC, DrugD, Score`  
+  - By convention for INDIGO‑MTB: **lower score ≈ more synergistic**, **higher score ≈ more antagonistic**.
+- Log lines in the MATLAB Command Window confirming counts, coverage, and any rows skipped.
+
+**Expected row count (math):** If all 35 shortlisted drugs are present and none are `EHW4`, we form `nchoosek(35, 3) = 6,545` unique partner triplets; pairing each with `EHW4` gives **6,545 total 4‑way combinations**. (If some shortlist names don’t map to columns, the number will be lower.)
+
+---
+
+## Assumptions &amp; prerequisites
+- Your Indigo folder is at: `C:\Users\victo\OneDrive\Documents\MATLAB\Indigo`  
+  - `Code\` contains INDIGO‑MTB functions: `process_transcriptome_tb.m`, `indigo_train_tb.m`, `indigo_predict_tb.m`, Random‑Forest backend, etc.
+  - `Data\` contains:
+    - `normData_EHW4.mat` (previously saved; variables: `normData`, `rows`, `cols_cb`)
+    - `identifiers_match_tb.xlsx`
+    - `tb_training_plus_updated.xlsx` (latest training set provided by your PI)
+- MATLAB can “see” the `Code\` path (we add it below).  
+- You’ve already run ComBat and appended **EHW4** (i.e., `normData_EHW4.mat` exists). If you instead maintain a newer file (e.g., with PZA/POA appended), **set `normFile` accordingly**.
+
+&gt; **Reproducibility tip:** if you want bit‑for‑bit repeatability for Random Forests, set `rng(0,&#x27;twister&#x27;)` **before** training.
+
+---
+
+## Step‑by‑step MATLAB (copy/paste blocks)
+
+### 0) Session setup (paths &amp; output folder)
+```matlab
+%% 0) Session setup
+baseDir = &#x27;C:\Users\victo\OneDrive\Documents\MATLAB\Indigo&#x27;;
+cd(baseDir); addpath(genpath(fullfile(baseDir,&#x27;Code&#x27;)));
+
+dataDir = fullfile(baseDir,&#x27;Data&#x27;);
+outDir  = fullfile(baseDir,&#x27;Deliverables&#x27;);
+if ~exist(outDir,&#x27;dir&#x27;), mkdir(outDir); end
+
+% Optional for deterministic RF behavior
+rng(0,&#x27;twister&#x27;);
+
+fprintf(&#x27;Paths set. baseDir=%s\n&#x27;, baseDir);
+```
+**Why this matters:** Ensures MATLAB can locate all functions and we have a place to save outputs. The RNG line stabilizes RF training.
+
+**Validate:** No errors; `exist(outDir)` returns 7; `which indigo_predict_tb -all` shows a path under `Code\`.
+
+---
+
+### 1) Load ComBat‑normalized matrix and build phenotype at z=2
+```matlab
+%% 1) Load ComBat matrix (already includes EHW4) and build phenotype
+normFile = fullfile(dataDir,&#x27;normData_EHW4.mat&#x27;);  % use your most recent file if different
+S = load(normFile);   % expects: S.normData (genes x conditions), S.rows (Rv IDs), S.cols_cb (labels)
+
+assert(all(isfield(S,{&#x27;normData&#x27;,&#x27;rows&#x27;,&#x27;cols_cb&#x27;})), ...
+    &#x27;normData file must contain normData, rows, cols_cb.&#x27;);
+
+Xcb   = double(S.normData);      % genes x conditions
+rows  = string(S.rows(:));       % Rv IDs
+cols  = string(S.cols_cb(:));    % condition labels (incl. &quot;EHW4&quot;)
+
+fprintf(&#x27;Loaded: %d genes x %d conditions. Contains EHW4? %d\n&#x27;, ...
+    size(Xcb,1), size(Xcb,2), any(strcmpi(cols,&#x27;EHW4&#x27;)));
+
+% Build phenotype/barcodes at z = 2 (tutorial default)
+z = 2;
+[phenotype_data, phenotype_labels] = process_transcriptome_tb(Xcb, cellstr(rows), z);
+fprintf(&#x27;Phenotype done. Features=%d, Conditions=%d\n&#x27;, size(phenotype_data,1), size(phenotype_data,2));
+```
+**Why:** INDIGO uses a binarized “barcode” (sigma/delta features) rather than raw values. z=2 is the published default.
+
+**Validate:** Printed sizes make sense; no errors.
+
+---
+
+### 2) Ensure a complete name‑map and retrain the model
+```matlab
+%% 2) Complete the name map and retrain on the updated training set
+idBase = readtable(fullfile(dataDir,&#x27;identifiers_match_tb.xlsx&#x27;),&#x27;TextType&#x27;,&#x27;string&#x27;);
+idBase.Properties.VariableNames(1:2) = {&#x27;DrugID&#x27;,&#x27;ColLabel&#x27;};
+
+% Auto‑complete for any missing column labels
+missing = setdiff(cols, string(idBase.ColLabel), &#x27;stable&#x27;);
+if ~isempty(missing)
+    addRows = table(missing, missing, &#x27;VariableNames&#x27;, {&#x27;DrugID&#x27;,&#x27;ColLabel&#x27;});
+    idMap   = [idBase; addRows];
+    key     = strcat(string(idMap.DrugID),&#x27;→&#x27;,string(idMap.ColLabel));
+    [~,k]   = unique(key,&#x27;stable&#x27;); idMap = idMap(k,:);
+else
+    idMap = idBase;
+end
+
+idmapFile = fullfile(dataDir,&#x27;identifiers_match_tb_completed.xlsx&#x27;);
+writetable(idMap, idmapFile);
+
+fprintf(&#x27;Name‑map coverage: %d/%d columns.\n&#x27;, ...
+    sum(ismember(cols, string(idMap.ColLabel))), numel(cols));
+
+% Retrain on the latest training spreadsheet
+[train_scores, train_pairs] = xlsread(fullfile(dataDir,&#x27;tb_training_plus_updated.xlsx&#x27;));
+[~, ~, ~, modelNew, ~, ~] = indigo_train_tb( ...
+    [], idmapFile, [], 1, ...
+    phenotype_data, phenotype_labels, cellstr(cols), ...
+    train_scores, train_pairs);
+
+fprintf(&#x27;Model retrained on %d pairs.\n&#x27;, size(train_scores,1));
+```
+**Why:** The name‑map tells INDIGO how matrix columns link to DrugIDs used in training/prediction. Retraining incorporates your PI’s newest rows so 4‑way predictions reflect the latest knowledge.
+
+**Validate:** Coverage equals `numel(cols)`. `modelNew` exists in workspace, no errors thrown.
+
+---
+
+### 3) Define the Top‑35 list and map to DrugIDs present
+We start from your PI’s/top‑35 list (paper’s priority drugs). We’ll map any human‑readable names to actual `DrugID`s via the completed name‑map. **Review the mapping printed by this block**; if any intended drug is not found, add the exact `DrugID` present in your `identifiers_match_tb.xlsx`.
+
+```matlab
+%% 3) Top‑35 list (human‑readable) → map to DrugIDs present in matrix
+top35_human = string([ ...
+&quot;Amikacin&quot;,&quot;Amoxicillin&quot;,&quot;Azithromycin&quot;,&quot;Bedaquiline&quot;,&quot;Capreomycin&quot;, ...
+&quot;Cefoxitin&quot;,&quot;Chlorpromazine&quot;,&quot;Ciprofloxacin&quot;,&quot;Clarythromycin&quot;,&quot;Clofazimine&quot;, ...
+&quot;Dapsone&quot;,&quot;Delamanid&quot;,&quot;Ethambutol&quot;,&quot;Ethionamide&quot;,&quot;Isoniazid&quot;, ...
+&quot;Kanamycin&quot;,&quot;Linezolid&quot;,&quot;Methotrexate&quot;,&quot;Minocycline&quot;,&quot;Moxifloxacin&quot;, ...
+&quot;Norfloxacin&quot;,&quot;Ofloxacin&quot;,&quot;P218&quot;,&quot;PBTZ169&quot;,&quot;Pretomanid&quot;, ...
+&quot;Rifampicin&quot;,&quot;Rifapentine&quot;,&quot;Spectinomycin&quot;,&quot;Streptomycin&quot;,&quot;Sulfamethoxazole&quot;, ...
+&quot;Sutezolid&quot;,&quot;Tetracycline&quot;,&quot;Thioridazine&quot;,&quot;Trimethoprim&quot;,&quot;Verapamil&quot;]);
+
+% Helper to resolve: try exact DrugID, exact ColLabel, then contains‑match
+Tmap = readtable(idmapFile,&#x27;TextType&#x27;,&#x27;string&#x27;);
+Tmap.Properties.VariableNames(1:2) = {&#x27;DrugID&#x27;,&#x27;ColLabel&#x27;};
+
+drugIDs_present = string([]);
+for k = 1:numel(top35_human)
+    q = top35_human(k);
+
+    % 1) exact matches in DrugID or ColLabel
+    m1 = strcmpi(Tmap.DrugID, q) | strcmpi(Tmap.ColLabel, q);
+    if any(m1)
+        drugIDs_present(end+1) = Tmap.DrugID(find(m1,1,&#x27;first&#x27;)); %#ok&lt;SAGROW&gt;
+        continue;
+    end
+
+    % 2) contains‑match on ColLabel (e.g., &#x27;Rifampicin&#x27; in &#x27;RIF&#x27;)
+    m2 = contains(lower(Tmap.ColLabel), lower(q));
+    if any(m2)
+        drugIDs_present(end+1) = Tmap.DrugID(find(m2,1,&#x27;first&#x27;)); %#ok&lt;SAGROW&gt;
+        continue;
+    end
+
+    % 3) contains‑match on DrugID (e.g., &#x27;Moxifloxacin&#x27; in &#x27;MOX&#x27;)
+    m3 = contains(lower(Tmap.DrugID), lower(q));
+    if any(m3)
+        drugIDs_present(end+1) = Tmap.DrugID(find(m3,1,&#x27;first&#x27;)); %#ok&lt;SAGROW&gt;
+        continue;
+    end
+
+    fprintf(2,&#x27;[WARN] Could not map &quot;%s&quot; — please add its exact DrugID to top35_human or fix identifiers map.\n&#x27;, q);
+end
+
+% Keep only DrugIDs that map to columns we actually have
+keep = ismember(Tmap.DrugID, drugIDs_present) &amp; ismember(Tmap.ColLabel, cols);
+top35_drugIDs = unique(Tmap.DrugID(keep), &#x27;stable&#x27;);
+
+% Ensure EHW4 itself is available and excluded from partners
+assert(any(strcmpi(Tmap.DrugID, &#x27;EHW4&#x27;)) || any(strcmpi(Tmap.ColLabel,&#x27;EHW4&#x27;)), ...
+    &#x27;EHW4 is missing from the name map.&#x27;);
+top35_drugIDs(strcmpi(top35_drugIDs,&#x27;EHW4&#x27;)) = [];   % remove if present by accident
+
+fprintf(&#x27;Mapped %d/%d shortlist drugs to present DrugIDs. Example: %s\n&#x27;, ...
+    numel(top35_drugIDs), numel(top35_human), strjoin(top35_drugIDs(1:min(5,end))&#x27;, &#x27;, &#x27;&#x27;));
+```
+**Why:** INDIGO functions operate on `DrugID`s. This block resolves your human names to the machine names present in your matrix. It also warns you if something can’t be mapped (you must correct it before proceeding).
+
+**Validate:** The printed count should be close to 35; if it’s much lower, inspect the warnings and update names/mappings.
+
+---
+
+### 4) Build all 4‑way combinations that include EHW4
+This creates **all unique triplets** from the shortlist and pairs each with `EHW4` as the anchor.
+
+```matlab
+%% 4) Create the 4‑drug combination list (EHW4 + any 3 from shortlist)
+others = cellstr(top35_drugIDs(:));                % candidates
+C3 = nchoosek(others, 3);                          % all unordered triplets (B,C,D)
+
+nComb = size(C3,1);
+fprintf(&#x27;Planned 4‑way combos: %d (expected ~6545 if 35 present)\n&#x27;, nComb);
+
+% Prepare table to accumulate results
+T4 = table(&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,[],&#x27;VariableNames&#x27;,{&#x27;DrugA&#x27;,&#x27;DrugB&#x27;,&#x27;DrugC&#x27;,&#x27;DrugD&#x27;,&#x27;Score&#x27;}); T4(1,:) = [];
+```
+**Why:** `nchoosek(N,3)` generates the unique set of 3‑drug partners; `EHW4` is added as the first drug later. This avoids duplicates like `(A,B,C)` vs `(A,C,B)`.
+
+**Validate:** If `nComb` is unexpectedly small, it means many shortlist items failed to map; revisit Step 3.
+
+---
+
+### 5) Predict in safe batches using `indigo_predict_tb` (inputtype = 4)
+```matlab
+%% 5) Batch predictions (to keep memory usage comfortable)
+batchSz = 2500;         % adjust larger/smaller if needed
+i = 1; n = size(C3,1);
+
+while i &lt;= n
+    r = i : min(i+batchSz-1, n);
+    quads = [repmat({&#x27;EHW4&#x27;}, numel(r),1), C3(r,:)];   % {EHW4, B, C, D}
+    try
+        [PI, PS] = indigo_predict_tb( ...
+            modelNew, quads, 4, ...                   % inputtype=4 for 4‑way
+            idmapFile, [], 1, ...
+            phenotype_data, phenotype_labels, cellstr(cols));
+    catch ME
+        fprintf(2,&#x27;[ERROR] Batch %d–%d failed: %s\n&#x27;, r(1), r(end), ME.message);
+        rethrow(ME);
+    end
+
+    chunk = cell2table(PI,&#x27;VariableNames&#x27;,{&#x27;DrugA&#x27;,&#x27;DrugB&#x27;,&#x27;DrugC&#x27;,&#x27;DrugD&#x27;});
+    chunk.Score = PS;
+    T4 = [T4; chunk]; %#ok&lt;AGROW&gt;
+
+    fprintf(&#x27;Predicted %d/%d combos...\n&#x27;, r(end), n);
+    i = r(end) + 1;
+end
+```
+**Why:** INDIGO can score many combos at once, but batching keeps MATLAB responsive and avoids out‑of‑memory. We pass `inputtype=4` as used in the INDIGO‑MTB paper for 4‑drug predictions.
+
+**Validate:** The progress counter reaches `n`. `T4` height equals `nComb` on success.
+
+---
+
+### 6) Export and final sanity checks
+```matlab
+%% 6) Export deliverable
+outXlsx = fullfile(outDir,&#x27;EHW4_4way_TOP35.xlsx&#x27;);
+writetable(T4, outXlsx);
+fprintf(&#x27;Saved: %s  (rows=%d, cols=%d)\n&#x27;, outXlsx, height(T4), width(T4));
+
+% Quick peek: top‑20 most synergistic (lowest scores)
+T4_synergy = sortrows(T4, &#x27;Score&#x27;, &#x27;ascend&#x27;);
+disp(T4_synergy(1:min(20,height(T4_synergy)), :));
+
+% Quick peek: top‑20 most antagonistic (highest scores)
+T4_antag = sortrows(T4, &#x27;Score&#x27;, &#x27;descend&#x27;);
+disp(T4_antag(1:min(20,height(T4_antag)), :));
+
+% Invariant checks
+assert(all(strcmp(T4.Properties.VariableNames, {&#x27;DrugA&#x27;,&#x27;DrugB&#x27;,&#x27;DrugC&#x27;,&#x27;DrugD&#x27;,&#x27;Score&#x27;})), ...
+    &#x27;Unexpected column order or names.&#x27;);
+assert(isfloat(T4.Score), &#x27;Score must be numeric.&#x27;);
+```
+**Why:** Produces your submission file and does quick ranking views. The asserts catch subtle format errors early.
+
+**Validate:** File appears under `Deliverables\`; row count equals `nComb` and columns are in the exact order.
+
+---
+
+## Interpretation guide
+- **Score meaning:** By the MTB convention, **lower values indicate stronger synergy**; higher indicate antagonism. Focus first on the **lowest‑scoring** 4‑drug sets for experimental follow‑up.
+- **Why 4‑way is valuable:** Some drugs that only mildly complement in pairs can form highly cooperative sets when combined because they cover different gene modules.
+
+---
+
+## Troubleshooting (quick lookup)
+- **`Unrecognized function or variable &#x27;indigo_predict_tb&#x27;`**  
+  Add paths: `addpath(genpath(fullfile(baseDir,&#x27;Code&#x27;)))`; then `which indigo_predict_tb -all` to confirm.
+- **`EHW4 is missing from the name map`**  
+  Open `identifiers_match_tb.xlsx`; add a row mapping `DrugID=EHW4` to its column label (`EHW4`). Re‑run Step 2.
+- **Very small `nComb` (e.g., &lt; 3000)**  
+  Step 3 failed to map many shortlist drugs. Inspect warnings; fix names in `top35_human` or in `identifiers_match_tb.xlsx`.
+- **`Error using indigo_predict_tb ... inputtype`**  
+  Ensure you are calling **`indigo_predict_tb`** (MTB variant), not `indigo_predict`. The MTB function accepts `inputtype=3` and `4`.
+- **Memory errors during prediction**  
+  Lower `batchSz` (e.g., 1000). Close other apps. Confirm `T4` grows steadily.
+- **Non‑reproducible scores**  
+  Set `rng(0,&#x27;twister&#x27;)` before training to stabilize RF randomness.
+
+---
+
+## Reproducibility checklist
+- Code and paths exactly as above
+- `normData_EHW4.mat` created from the same ComBat‑corrected matrix used earlier
+- Same `tb_training_plus_updated.xlsx` and identifiers map
+- Same z‑threshold (2.0)
+- Optional: fixed RNG to reduce run‑to‑run drift
+
+---
+
+## What to send to your PI
+- `Deliverables\EHW4_4way_TOP35.xlsx`
+- A short note, e.g.:  
+  &gt; “Trained INDIGO‑MTB on tb_training_plus_updated. Generated 6,5xx EHW4‑anchored 4‑drug predictions across the paper’s Top‑35 set (exact count depends on mapping coverage). Lower scores ≈ more synergy. The attached sheet is sorted both ways in my local view; let me know if you want top‑N filtered exports.”
+
+---
+
+*End of file.*
+</code></pre>
+                </div>
+              </details>
+
+              <details>
+                <summary><span>06 — Correlation p‑values methods</span><span class="hint">FDR notes</span></summary>
+                <div class="detailsBody">
+                  <pre><code># 06_Correlation_PValues_Methods
+**Purpose.** This note explains *what* the Pearson/Spearman correlations and p‑values mean in our INDIGO‑MTB workflow, *why* p‑values can be extremely small, and *exactly how* to compute and export them in MATLAB for one or more “anchor” conditions (e.g., **EHW4**, **PZA**, **POA**). It also includes validation checks, multiple‑testing corrections (FDR), and troubleshooting.
+
+---
+
+## 1) Concepts — Pearson vs. Spearman, and their p‑values
+
+**Pearson correlation (linear).** Measures the strength of a *linear* relationship between two numeric vectors `x` and `y`. If we have `n` paired observations, the sample correlation is `r`. Under the null hypothesis **H₀: ρ = 0**, the test statistic
+```
+t = r * sqrt((n - 2) / (1 - r^2))
+```
+follows a Student t‑distribution with `df = n - 2`. A **two‑sided p‑value** is:
+```
+p = 2 * tcdf(-abs(t), df)
+```
+(When you call MATLAB’s `corr(…, &#x27;Type&#x27;,&#x27;Pearson&#x27;)`, it returns both `r` and a two‑sided p‑value computed via this approximation.)
+
+**Spearman rank correlation (monotonic).** Pearson on the *ranked* data (ties handled via average ranks). It answers “do these profiles move genes in similar **order**,” not “by similar **amounts**.” In transcriptomics/fitness comparisons across assays, Spearman is often more robust.
+
+**Which to use?**  
+- Use **Spearman** to compare across different assay types or scales (e.g., EHW4 logFC vs a fitness profile).  
+- Use **Pearson** if you trust the linear scale and magnitude (same pipeline, same normalization).  
+- In our project, the PI first reviewed Pearson; we then added Spearman (“rank correlation”) for robustness.
+
+**Why are p‑values so tiny?** Because `n` is large (we typically correlate across **~8.5k genes**). With thousands of points, even small correlations (e.g., `r ≈ 0.05`) can be statistically significant. That’s expected; don’t confuse *statistical* significance with *biological* relevance. We therefore always report **effect sizes** (the correlation coefficients) and often add **FDR** correction to control for multiple comparisons.
+
+---
+
+## 2) Inputs — what the code expects
+- `normData_EHW4.mat` (or the latest) containing:
+  - `normData`  — genes × conditions, ComBat‑normalized.
+  - `rows`      — gene IDs (e.g., Rv…).
+  - `cols_cb`   — condition labels (strings), **including anchors** like `EHW4`, `PZA`, `POA`.
+- MATLAB R2017b+ with Statistics functions (`corr`, `tcdf`) available.
+
+&gt; Correlations are **deterministic** (no RNG). If you rerun on the same matrix, you should get identical numbers.
+
+---
+
+## 3) MATLAB — compute Pearson **and** Spearman with p‑values, plus FDR
+Paste this whole block into a new script (e.g., `_corr_with_pvalues.m`) and run it from your **Indigo** folder. Adjust `anchors` to the conditions you want.
+
+```matlab
+%% 0) Session setup
+baseDir = &#x27;C:\Users\victo\OneDrive\Documents\MATLAB\Indigo&#x27;;
+cd(baseDir); addpath(genpath(fullfile(baseDir,&#x27;Code&#x27;)));
+dataDir = fullfile(baseDir,&#x27;Data&#x27;);
+outDir  = fullfile(baseDir,&#x27;Deliverables&#x27;);
+if ~exist(outDir,&#x27;dir&#x27;), mkdir(outDir); end
+
+%% 1) Load ComBat-normalized matrix and labels
+S = load(fullfile(dataDir,&#x27;normData_EHW4.mat&#x27;)); % or the latest (e.g., normData_EHW4_PZA_POA.mat)
+X = double(S.normData);                  % genes x conditions
+rows = string(S.rows(:));
+cols = string(S.cols_cb(:));
+
+fprintf(&#x27;Matrix: %d genes x %d conditions\n&#x27;, size(X,1), size(X,2));
+
+%% 2) Choose anchors (conditions to correlate against all others)
+anchors = [&quot;EHW4&quot;];  % add &quot;PZA&quot;,&quot;POA&quot; if present: [&quot;EHW4&quot;,&quot;PZA&quot;,&quot;POA&quot;]
+
+for a = anchors
+    iA = find(strcmpi(cols,a),1);
+    assert(~isempty(iA), &#x27;Anchor %s not found in cols.&#x27;, a);
+    vecA = X(:,iA);
+
+    % Defensive: if a column has zero variance, correlations are undefined.
+    if std(vecA,&#x27;omitnan&#x27;) == 0
+        warning(&#x27;%s has zero variance; correlations will be NaN.&#x27;, a);
+    end
+
+    % Preallocate
+    nC = numel(cols);
+    rhoP = NaN(nC,1); pP = NaN(nC,1);
+    rhoS = NaN(nC,1); pS = NaN(nC,1);
+    Npair = NaN(nC,1); % number of gene pairs used per correlation
+
+    for j = 1:nC
+        x = vecA;
+        y = X(:,j);
+
+        % Pairwise non-missing
+        m = isfinite(x) &amp; isfinite(y);
+        Npair(j) = nnz(m);
+
+        if Npair(j) &gt;= 3  % need at least 3 points for a correlation
+            [rhoP(j), pP(j)] = corr(x(m), y(m), &#x27;Type&#x27;,&#x27;Pearson&#x27;,  &#x27;Rows&#x27;,&#x27;pairwise&#x27;);
+            [rhoS(j), pS(j)] = corr(x(m), y(m), &#x27;Type&#x27;,&#x27;Spearman&#x27;, &#x27;Rows&#x27;,&#x27;pairwise&#x27;);
+        else
+            rhoP(j) = NaN; pP(j) = NaN;
+            rhoS(j) = NaN; pS(j) = NaN;
+        end
+    end
+
+    % Multiple-testing correction (FDR, Benjamini-Hochberg)
+    qP = bh_fdr(pP);
+    qS = bh_fdr(pS);
+
+    % Package and sort (by Spearman first; create a Pearson-sorted view too)
+    T = table(cols, Npair, rhoS, pS, qS, rhoP, pP, qP, ...
+        &#x27;VariableNames&#x27;, {&#x27;Condition&#x27;,&#x27;N&#x27;,&#x27;Spearman&#x27;,&#x27;p_Spearman&#x27;,&#x27;q_Spearman&#x27;,&#x27;Pearson&#x27;,&#x27;p_Pearson&#x27;,&#x27;q_Pearson&#x27;});
+
+    Tsp = sortrows(T, {&#x27;Spearman&#x27;,&#x27;N&#x27;}, {&#x27;descend&#x27;,&#x27;descend&#x27;});
+    Tpe = sortrows(T, {&#x27;Pearson&#x27;,&#x27;N&#x27;},  {&#x27;descend&#x27;,&#x27;descend&#x27;});
+
+    % Export
+    fn1 = fullfile(outDir, sprintf(&#x27;%s_similarity_by_rankcorr_withP.xlsx&#x27;, a));
+    fn2 = fullfile(outDir, sprintf(&#x27;%s_similarity_by_pearson_withP.xlsx&#x27;, a));
+    writetable(Tsp, fn1);
+    writetable(Tpe, fn2);
+
+    % Quick top-10 peek (by Spearman)
+    disp(Tsp(1:min(10,height(Tsp)), :));
+
+    fprintf(&#x27;[%s] Saved:\n  %s\n  %s\n&#x27;, a, fn1, fn2);
+end
+
+%% --- Local helper: Benjamini-Hochberg FDR ---
+function q = bh_fdr(p)
+    % p: vector of p-values (NaN allowed)
+    q = NaN(size(p));
+    [ps, idx] = sort(p(:), &#x27;ascend&#x27;, &#x27;MissingPlacement&#x27;,&#x27;last&#x27;);
+    m = sum(isfinite(ps));
+    if m == 0, return; end
+    ranks = (1:m)&#x27;;
+    qs = ps(1:m) .* m ./ ranks;     % BH
+    % enforce monotonicity of adjusted p-values
+    qs = min(1, cummin(flipud(qs)));
+    qs = flipud(qs);
+    q(idx(1:m)) = qs;
+end
+```
+
+### What this script does
+1. Loads your normalized matrix and labels.  
+2. For each **anchor** (EHW4/PZA/POA), computes **Pearson** *and* **Spearman** correlations against *every* condition.  
+3. Records the number of paired genes used (`N`) for transparency.  
+4. Computes **two-sided p‑values** (from `corr`) and applies **BH‑FDR** to control false discovery rate across the many tests.  
+5. Exports two Excel files per anchor: one sorted by Spearman, one by Pearson.  
+6. Prints the top‑10 by Spearman in the Command Window.
+
+&gt; **Interpretation:** Larger `|ρ|` ⇒ stronger relationship. With ~8.5k genes, even modest `ρ` produce tiny p‑values; use **ρ** as the main effect size and **q** for significance under multiple testing.
+
+---
+
+## 4) Validation &amp; sanity checks
+- **Self‑match.** `EHW4` vs `EHW4` should give `Spearman ≈ 1`, `Pearson ≈ 1`, `p ~ 0`, `N ≈ #genes`. If not, the anchor label doesn’t match or the column is constant/NaN.  
+- **Pairs used (`N`).** This should be close to the total gene count (e.g., ~8,539). If `N` is much smaller, you have many missing values — check your ComBat inputs or earlier merges.  
+- **Distribution look.** If most `p` (or `q`) are tiny, that’s a consequence of very large `N`. Rank by **ρ**, not just p‑value.  
+- **Biology cross‑check.** Top‑ranked conditions by Spearman should be pharmacologically related or share mechanisms when possible.
+
+---
+
+## 5) Frequently asked “why” questions
+- **“Why do Spearman and Pearson rankings differ?”** Because Spearman ignores exact magnitudes and focuses on order. If two profiles have similar ups/downs but different scale, Spearman stays high while Pearson may drop.  
+- **“Why are some p‑values exactly 0 in Excel?”** Display underflow: the true p is smaller than Excel’s display limit; it’s not literally zero. Format as scientific notation or cap at something like `1e-300` for readability.  
+- **“Two‑sided or one‑sided?”** We use **two‑sided** by default because we don’t know a priori whether profiles will be positively or negatively correlated. Use one‑sided *only* with a pre‑registered directional hypothesis.
+
+---
+
+## 6) Troubleshooting
+**Error: “Undefined function or variable ‘corr’.”**  
+You’re not in MATLAB or the Statistics functionality is missing. Use base MATLAB R2017b+; `corr` is included.
+
+**Many NaNs in results.**  
+You likely have NaNs in columns. Ensure you used the ComBat‑normalized matrix where NaNs were resolved (median imputation prior to ComBat). The script uses `&#x27;Rows&#x27;,&#x27;pairwise&#x27;` to drop NaN pairs — but if entire columns are NaN or constant, correlations become NaN.
+
+**Constant column (std = 0).**  
+A profile with zero variance cannot be correlated (division by zero). The script warns and returns NaN. Fix upstream (e.g., check input or normalization).
+
+**Anchor not found.**  
+Check exact spelling and case in `cols_cb`. Print `cols` and search with `contains(cols,&#x27;EHW4&#x27;)` for debugging.
+
+**p‑values look “too small.”**  
+Not a bug — with thousands of genes, the test has massive power. Focus on **effect size (ρ)** and adjust with **FDR** (`q`).
+
+---
+
+## 7) Optional: combining both views into one deliverable
+If your PI prefers a single sheet per anchor, keep **T** (unsorted) and write once; recipients can sort by either `Spearman` or `Pearson` in Excel. The script above writes two pre‑sorted files for convenience.
+
+---
+
+## 8) Reporting template (what to send)
+&gt; **Correlation of EHW4 to all conditions (ComBat‑normalized; genes ≈ 8.5k).** We computed **Spearman** (rank) and **Pearson** (linear) correlations, with two‑sided p‑values and BH‑FDR `q`. Because of the large sample size per correlation (one point per gene), many p‑values are extremely small; we therefore prioritize effect size (ρ) and report both raw `p` and `q`. Top‑10 most similar to EHW4 by Spearman are … (attach Excel).
+
+---
+
+## 9) Reproducibility
+- Correlation and p‑values are *deterministic* given the matrix; no RNG seeds are involved. Re‑running on the same `normData` should reproduce identical numbers.
+- Keep the exact `normData_*.mat` file with your emails so anyone can rerun the script and match results byte‑for‑byte.
+</code></pre>
+                </div>
+              </details>
+            </div>
+          </details>
+
+<p class="projMeta" style="margin-top:10px">Tip: if you upload these notes as files (e.g., <code>indigo_notes/</code>) you can link them directly from this page.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+      <div class="sectionHeader">
+        <h2>Skills</h2>
+        <p>From my resume</p>
+      </div>
+
+      <div class="grid">
+        <article class="card span6">
+          <h3 class="projTitle">Programming & data</h3>
+          <div class="tags">
+            <span class="tag">Python (pandas, NumPy)</span>
+            <span class="tag">R (tidyverse)</span>
+            <span class="tag">Java (OOP)</span>
+            <span class="tag">SQL fundamentals</span>
+            <span class="tag">MATLAB</span>
+            <span class="tag">HTML/CSS</span>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3 class="projTitle">Reporting & tools</h3>
+          <div class="tags">
+            <span class="tag">Excel (pivot tables)</span>
+            <span class="tag">Apache POI</span>
+            <span class="tag">R Studio</span>
+            <span class="tag">Microsoft Office</span>
+            <span class="tag">Git/GitHub</span>
+            <span class="tag">R Shiny</span>
+            <span class="tag">BioRender</span>
+            <span class="tag">Adobe Photoshop</span>
+            <span class="tag">AlphaFold Multimer</span>
+            <span class="tag">VMD</span>
+            <span class="tag">CAD</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap" style="padding:0">
+        <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between">
+          <span>© <span id="year"></span> Victor Li</span>
+          <span>
+            <a href="resume.pdf" target="_blank" rel="noreferrer">Resume</a> ·
+            <a href="https://github.com/Victor-2007" target="_blank" rel="noreferrer">GitHub</a> ·
+            <a href="mailto:victli@umich.edu">victli@umich.edu</a>
+          </span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Theme toggle (default = light). Persists in localStorage.
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') root.setAttribute('data-theme','dark');
+
+    function updateLabel(){
+      const t = root.getAttribute('data-theme') || 'light';
+      btn.textContent = (t === 'dark') ? 'Light mode' : 'Dark mode';
+    }
+    updateLabel();
+
+    btn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || 'light';
+      const next = (current === 'dark') ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateLabel();
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
