@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Victor Li — Biomedical Engineering & Computer Science, Pre-Med. Selected projects in diabetes analytics, computational biology, and embedded systems." />
+
+  <meta property="og:title" content="Victor Li — Portfolio" />
+  <meta property="og:description" content="Selected projects: CGM analytics + dashboard, protein interaction modeling, TB drug-synergy pipeline, CAD prototyping + testing." />
+  <meta property="og:type" content="website" />
+
+  <title>Victor Li | Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --surface2: #f3f1ee;
+      --text: #1a1a1a;
+      --muted: #6b6560;
+      --accent: #c45d3e;
+      --accent-soft: #f5ebe6;
+      --line: rgba(26, 26, 26, 0.1);
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+      --shadow-hover: 0 2px 8px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.1);
+      --radius: 12px;
+      --max: 920px;
+      --font-display: 'Newsreader', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --codeBg: #1c1917;
+      --codeText: #e7e5e4;
+      --chip: #f3f1ee;
+      --chipText: #44403c;
+      --link: #c45d3e;
+    }
+
+    [data-theme="dark"] {
+      --bg: #111110;
+      --surface: #1a1918;
+      --surface2: #222120;
+      --text: #edebe8;
+      --muted: #a8a29e;
+      --accent: #e8845a;
+      --accent-soft: #2a2018;
+      --line: rgba(237, 235, 232, 0.1);
+      --shadow: 0 1px 3px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.3);
+      --shadow-hover: 0 2px 8px rgba(0,0,0,0.3), 0 16px 40px rgba(0,0,0,0.4);
+      --codeBg: #0c0a09;
+      --codeText: #edebe8;
+      --chip: #292524;
+      --chipText: #d6d3d1;
+      --link: #e8845a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── Reveal animation ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-brand:hover { text-decoration: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--surface2);
+      text-decoration: none;
+    }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .btn-primary:hover {
+      opacity: 0.88;
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-accent:hover { opacity: 0.9; }
+
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+    /* ─── Layout ─── */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 72px 0 48px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 6vw, 64px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+    .hero-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 680px;
+    }
+    .hero-meta {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .hero-meta a { color: var(--muted); }
+    .hero-meta a:hover { color: var(--text); }
+    .dot { opacity: 0.35; }
+    .hero-cta {
+      margin-top: 28px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Sections ─── */
+    .section {
+      padding-top: 56px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      margin-bottom: 32px;
+    }
+
+    /* ─── Project Cards ─── */
+    .project {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 28px;
+      margin-bottom: 20px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .project:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .project h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      flex: 1;
+      min-width: 200px;
+    }
+    .project-desc {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--chipText);
+      background: var(--chip);
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .project ul {
+      margin-top: 16px;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .project li { margin-bottom: 6px; }
+    .project li::marker { color: var(--accent); }
+
+    .project-links {
+      margin-top: 18px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Grid for 2-col layouts ─── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── Details / Collapsible ─── */
+    details {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    details + details { margin-top: 8px; }
+    summary {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface2);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    summary:hover { background: color-mix(in srgb, var(--surface2) 80%, var(--line)); }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 400;
+      transition: transform 0.2s;
+    }
+    details[open] summary::after {
+      content: "−";
+    }
+    .details-body {
+      padding: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    /* ─── Code ─── */
+    pre {
+      margin: 12px 0 0;
+      padding: 16px;
+      overflow-x: auto;
+      border-radius: 10px;
+      background: var(--codeBg);
+      color: var(--codeText);
+      border: 1px solid color-mix(in srgb, var(--line) 50%, transparent);
+    }
+    code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    /* ─── Images ─── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (min-width: 700px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+    }
+    figure { margin: 0; }
+    .img-wrap {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface2);
+    }
+    img { display: block; width: 100%; height: auto; }
+    figcaption {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* ─── Publications ─── */
+    .pub-item {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .pub-venue {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ─── Leadership ─── */
+    .lead-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .lead-item:last-child { border-bottom: none; }
+    .lead-item h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .lead-item ul {
+      margin-top: 10px;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .lead-item li { margin-bottom: 4px; }
+    .lead-item li::marker { color: var(--accent); }
+
+    /* ─── Skills ─── */
+    .skill-group { margin-bottom: 24px; }
+    .skill-group h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .skill-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Contact ─── */
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+    }
+    .contact-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .contact-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .contact-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 48px 0 36px; }
+      .project { padding: 20px; }
+    }
+
+    /* ─── Focus ─── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    /* ─── Theme toggle icon ─── */
+    #themeBtn {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    /* ─── Divider accent ─── */
+    .accent-line {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#top">Victor Li</a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-sm" id="themeBtn" type="button" aria-label="Toggle theme">☀</button>
+        <a class="btn btn-sm btn-primary" href="resume.pdf" target="_blank" rel="noreferrer">Resume ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero reveal">
+      <p class="hero-eyebrow">Biomedical Engineering · Pre-Med · CS</p>
+      <h1>Victor Li</h1>
+      <p class="hero-desc">
+        University of Michigan engineering student (Biomedical Engineering, CS minor) on the pre-med track.
+        I work on computational biology, diabetes analytics, and embedded systems — and I focus on producing
+        clean deliverables: dashboards, ranked candidate lists, tested prototypes, and readable code.
+      </p>
+      <div class="hero-meta">
+        <span>Ann Arbor, MI · NYC</span>
+        <span class="dot">·</span>
+        <a href="mailto:victli@umich.edu">victli@umich.edu</a>
+        <span class="dot">·</span>
+        <a href="https://www.linkedin.com/in/victor-li-444b591b9" target="_blank" rel="noreferrer">LinkedIn</a>
+        <span class="dot">·</span>
+        <a href="https://github.com/Victor-2007" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-accent" href="#projects">View Projects</a>
+        <a class="btn" href="#contact">Get in Touch</a>
+      </div>
+    </section>
+
+    <!-- ═══ PROJECTS ═══ -->
+    <section id="projects" class="section">
+      <div class="reveal">
+        <p class="section-label">Selected Work</p>
+        <h2 class="section-title">Projects</h2>
+      </div>
+
+      <article class="project reveal">
+        <div class="project-header">
+          <h3>CGM Time-Series Analytics + R Shiny Dashboard</h3>
+        </div>
+        <p class="project-desc">
+          Analyzed long-term CGM datasets and built an interactive dashboard to explore temporal glycemic patterns.
+        </p>
+        <div class="tags">
+          <span class="tag">R</span>
+          <span class="tag">tidyverse</span>
+          <span class="tag">Shiny</span>
+          <span class="tag">time-series</span>
+        </div>
+        <ul>
+          <li>Processed 2.1M+ CGM readings and quantified day-to-day and time-of-day variability</li>
+          <li>Built 30+ interactive visualizations (longitudinal trends, distributions, stratified comparisons)</li>
+          <li>Maintained a collaborative GitHub workflow for reproducible analysis</li>
+        </ul>
+        <div class="project-links">
+          <a class="btn btn-sm" href="https://bowenz.shinyapps.io/cgm_long-term_glycemic_patterns/" target="_blank" rel="noreferrer">Dashboard ↗</a>
+          <a class="btn btn-sm" href="https://journals.sagepub.com/doi/10.1177/19322968251341264" target="_blank" rel="noreferrer">Publication ↗</a>
+        </div>
+      </article>
+
+      <article class="project reveal">
+        <div class="project-header">
+          <h3>Einstein / Montefiore: Protein Interaction Modeling (Insulin Receptor)</h3>
+        </div>
+        <p class="project-desc">
+          Structure-based computational analysis supporting figures and data tables for receptor–protein interaction work.
+        </p>
+        <div class="tags">
+          <span class="tag">computational biology</span>
+          <span class="tag">PDB parsing</span>
+          <span class="tag">Java</span>
+          <span class="tag">Apache POI</span>
+        </div>
+        <ul>
+          <li>Produced 10+ publication figures and summary tables from structural datasets</li>
+          <li>Wrote Java utilities to parse large PDB-derived tables into standardized Excel outputs</li>
+          <li>Worked with high-dimensional datasets (100K+ columns) for sensitivity checks and reporting</li>
+        </ul>
+        <div class="project-links">
+          <a class="btn btn-sm" href="https://www.biorxiv.org/content/10.1101/2024.09.06.611694v1" target="_blank" rel="noreferrer">Preprint ↗</a>
+        </div>
+
+        <details>
+          <summary>Code samples (Java)</summary>
+          <div class="details-body">
+            <details>
+              <summary>1) Distance-based "interest" flagging in Excel (Apache POI)</summary>
+              <div class="details-body">
+                <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Reads a single Excel sheet containing two sets of 3D coordinates (e.g., Molecule B and Molecule C).
+ * For each Molecule B row, it checks whether any Molecule C row lies within a threshold distance.
+ * Writes an "Interest" column (Yes/No) for Molecule B rows.
+ */
+public class ReadingExcel {
+
+  public static void main(String[] args) throws IOException {
+    if (args.length < 1) {
+      System.out.println("Usage: java ReadingExcel &lt;input.xlsx&gt;");
+      return;
+    }
+
+    String excelFilePath = args[0];
+    double threshold = 10.0;
+
+    try (FileInputStream in = new FileInputStream(excelFilePath);
+         XSSFWorkbook workbook = new XSSFWorkbook(in)) {
+
+      XSSFSheet sheet = workbook.getSheetAt(0);
+
+      XSSFRow headerRow = sheet.getRow(0);
+      XSSFCell headerCell = headerRow.createCell(12, CellType.STRING);
+      headerCell.setCellValue("Interest");
+
+      int lastRow = sheet.getLastRowNum();
+
+      for (int i = 1; i &lt; 870; i++) {
+        XSSFRow rowB = sheet.getRow(i);
+        double xB = rowB.getCell(6).getNumericCellValue();
+        double yB = rowB.getCell(7).getNumericCellValue();
+        double zB = rowB.getCell(8).getNumericCellValue();
+
+        boolean isOfInterest = false;
+        for (int j = 870; j &lt;= lastRow; j++) {
+          XSSFRow rowC = sheet.getRow(j);
+          double xC = rowC.getCell(6).getNumericCellValue();
+          double yC = rowC.getCell(7).getNumericCellValue();
+          double zC = rowC.getCell(8).getNumericCellValue();
+
+          double dx = xC - xB, dy = yC - yB, dz = zC - zB;
+          double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+          if (distance &lt; threshold) { isOfInterest = true; break; }
+        }
+
+        XSSFCell interestCell = rowB.createCell(12, CellType.STRING);
+        interestCell.setCellValue(isOfInterest ? "Yes" : "No");
+      }
+
+      try (FileOutputStream out = new FileOutputStream(excelFilePath)) {
+        workbook.write(out);
+      }
+    }
+    System.out.println("Done");
+  }
+}</code></pre>
+                <p style="margin-top:10px; font-size:13px; color:var(--muted);">
+                  Reads 3D coordinate columns for two molecule groups. For each row in the first group,
+                  scans the second group and flags "Yes" if any point is within a distance threshold (10 Å).
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>2) Flagging the second molecule group (reverse direction)</summary>
+              <div class="details-body">
+                <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Writes the Interest flag for Molecule C rows by checking
+ * whether any Molecule B row is within the threshold.
+ */
+public class SecondMoleculeInterest {
+
+  public static void main(String[] args) throws IOException {
+    if (args.length &lt; 2) {
+      System.out.println("Usage: java SecondMoleculeInterest &lt;input.xlsx&gt; &lt;output.xlsx&gt;");
+      return;
+    }
+
+    String inputPath = args[0];
+    String outputPath = args[1];
+    double threshold = 10.0;
+
+    try (FileInputStream in = new FileInputStream(inputPath);
+         XSSFWorkbook workbook = new XSSFWorkbook(in)) {
+
+      XSSFSheet sheet = workbook.getSheetAt(0);
+      int lastRow = sheet.getLastRowNum();
+
+      for (int i = 870; i &lt;= lastRow; i++) {
+        XSSFRow rowC = sheet.getRow(i);
+        double xC = rowC.getCell(6).getNumericCellValue();
+        double yC = rowC.getCell(7).getNumericCellValue();
+        double zC = rowC.getCell(8).getNumericCellValue();
+
+        boolean isOfInterest = false;
+        for (int j = 1; j &lt; 870; j++) {
+          XSSFRow rowB = sheet.getRow(j);
+          double xB = rowB.getCell(6).getNumericCellValue();
+          double yB = rowB.getCell(7).getNumericCellValue();
+          double zB = rowB.getCell(8).getNumericCellValue();
+
+          double dx = xB - xC, dy = yB - yC, dz = zB - zC;
+          double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+          if (distance &lt; threshold) { isOfInterest = true; break; }
+        }
+
+        XSSFCell interestCell = rowC.getCell(12);
+        if (interestCell == null) interestCell = rowC.createCell(12, CellType.STRING);
+        interestCell.setCellValue(isOfInterest ? "Yes" : "No");
+      }
+
+      try (FileOutputStream out = new FileOutputStream(outputPath)) {
+        workbook.write(out);
+      }
+    }
+    System.out.println("Wrote updated file.");
+  }
+}</code></pre>
+                <p style="margin-top:10px; font-size:13px; color:var(--muted);">
+                  Computes the same proximity rule in the reverse direction, storing "Interest" on the second molecule group.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>3) Aggregating across multiple models (probability-style summary)</summary>
+              <div class="details-body">
+                <pre><code>package excelOperations;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * Loads multiple model output files, counts how many models
+ * mark each row as Interest="Yes", and writes a summary into a master sheet.
+ */
+public class ProbabilityAggregator {
+
+  public static void main(String[] args) throws IOException {
+    if (args.length &lt; 2) {
+      System.out.println("Usage: java ProbabilityAggregator &lt;master.xlsx&gt; &lt;model1.xlsx&gt; ...");
+      return;
+    }
+
+    String masterPath = args[0];
+
+    Map&lt;String, XSSFSheet&gt; sheets = new HashMap&lt;&gt;();
+    Map&lt;String, XSSFWorkbook&gt; books = new HashMap&lt;&gt;();
+
+    for (int i = 0; i &lt; args.length; i++) {
+      String path = args[i];
+      try (FileInputStream in = new FileInputStream(path)) {
+        XSSFWorkbook wb = new XSSFWorkbook(in);
+        XSSFSheet sh = wb.getSheetAt(0);
+        String key = (i == 0) ? "MASTER" : ("MODEL" + i);
+        sheets.put(key, sh);
+        books.put(key, wb);
+      }
+    }
+
+    XSSFSheet masterSheet = sheets.get("MASTER");
+
+    for (int rowNum = 1; rowNum &lt;= masterSheet.getLastRowNum(); rowNum++) {
+      int yesCount = 0;
+      for (String name : sheets.keySet()) {
+        if (name.equals("MASTER")) continue;
+        XSSFRow row = sheets.get(name).getRow(rowNum);
+        if (row == null) continue;
+        XSSFCell cell = row.getCell(12);
+        if (cell != null &amp;&amp; "Yes".equalsIgnoreCase(cell.getStringCellValue())) {
+          yesCount++;
+        }
+      }
+
+      XSSFRow outRow = masterSheet.getRow(rowNum);
+      if (outRow == null) outRow = masterSheet.createRow(rowNum);
+      XSSFCell outCell = outRow.createCell(9, CellType.STRING);
+      outCell.setCellValue("Yes in " + yesCount + " models");
+    }
+
+    try (FileOutputStream out = new FileOutputStream(masterPath)) {
+      books.get("MASTER").write(out);
+    }
+
+    for (Map.Entry&lt;String, XSSFWorkbook&gt; e : books.entrySet()) {
+      if (!e.getKey().equals("MASTER")) e.getValue().close();
+    }
+    books.get("MASTER").close();
+    System.out.println("Aggregation complete.");
+  }
+}</code></pre>
+                <p style="margin-top:10px; font-size:13px; color:var(--muted);">
+                  Consolidates results from multiple model runs, counting how many flagged each row as "Interest = Yes."
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+      </article>
+
+      <div class="grid-2">
+        <article class="project reveal">
+          <h3>TB Drug-Synergy Screening Pipeline</h3>
+          <p class="project-desc">
+            Automated modeling runs and ranked shortlists to prioritize combinations for follow-up testing.
+          </p>
+          <div class="tags">
+            <span class="tag">MATLAB</span>
+            <span class="tag">ETL</span>
+            <span class="tag">ComBat</span>
+            <span class="tag">ranking</span>
+          </div>
+          <ul>
+            <li>Screened 100K+ drug combinations with repeatable logging</li>
+            <li>Generated analysis-ready Excel exports and ranked candidate lists</li>
+            <li>Computed Pearson/Spearman correlations and p-values across conditions</li>
+            <li>Integrated M2D2 drug-protein features with TACTIC's transfer-learning pipeline</li>
+          </ul>
+          <div class="project-links">
+            <a class="btn btn-sm" href="assets/docs/VictorLi_INDIGO_MTB_Research_Summary.pdf" target="_blank" rel="noopener noreferrer">Research Summary ↗</a>
+          </div>
+
+          <details>
+            <summary>MATLAB pipeline overview</summary>
+            <div class="details-body">
+              <details>
+                <summary>1) Append condition → impute → ComBat</summary>
+                <div class="details-body">
+                  <p>Ingest new transcriptome/fitness file, align by gene ID, fill missing values, and run ComBat to remove batch effects.</p>
+                </div>
+              </details>
+              <details>
+                <summary>2) Build phenotype features</summary>
+                <div class="details-body">
+                  <p>Convert expression into a z-thresholded phenotype representation for consistent cross-condition comparisons.</p>
+                </div>
+              </details>
+              <details>
+                <summary>3) Train → predict → export ranked combinations</summary>
+                <div class="details-body">
+                  <p>Train on curated interaction data, run batched predictions for 2/3/4-way combos. Export standardized tables for triage.</p>
+                </div>
+              </details>
+              <details>
+                <summary>4) Correlation + p-values (reporting)</summary>
+                <div class="details-body">
+                  <p>Compute Pearson/Spearman between prediction vectors, rank by Spearman for robustness.</p>
+                </div>
+              </details>
+            </div>
+          </details>
+        </article>
+
+        <article class="project reveal">
+          <h3>Bedside Buddy — Attachable Dorm Storage</h3>
+          <p class="project-desc">
+            Modular bedside cabinet for UMich residence hall bedframes using the existing bunking pin-hole interface.
+          </p>
+          <div class="tags">
+            <span class="tag">CAD</span>
+            <span class="tag">CAE</span>
+            <span class="tag">prototyping</span>
+            <span class="tag">testing</span>
+          </div>
+          <ul>
+            <li>Iterated through CAD/CAE revisions and a modular 3D-printed prototype</li>
+            <li>Tool-less installation via existing bedframe pin holes</li>
+            <li>Ran setup-time, stability, and deflection checks under everyday loads</li>
+          </ul>
+
+          <details>
+            <summary>Photos</summary>
+            <div class="details-body">
+              <div class="photo-grid">
+                <figure>
+                  <div class="img-wrap">
+                    <img data-fallback="BedsideBuddySketch.png" src="assets/BedsideBuddySketch.png" alt="Early sketch of Bedside Buddy" loading="lazy" />
+                  </div>
+                  <figcaption>Early sketch — modular sections and pin-hole interface</figcaption>
+                </figure>
+                <figure>
+                  <div class="img-wrap">
+                    <img data-fallback="CadModelBedsideBuddy.png" src="assets/CadModelBedsideBuddy.png" alt="Exploded CAD view" loading="lazy" />
+                  </div>
+                  <figcaption>Exploded CAD view of modular parts</figcaption>
+                </figure>
+              </div>
+            </div>
+          </details>
+        </article>
+      </div>
+
+      <article class="project reveal">
+        <h3>Embedded Firmware: Heated OR Mattress (MHEAL)</h3>
+        <p class="project-desc">
+          Raspberry Pi control software with safety interlocks, UI, and logging for a low-resource perioperative warming device.
+        </p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">GPIO</span>
+          <span class="tag">safety</span>
+        </div>
+        <ul>
+          <li>Implemented relay control, touchscreen UI, alerts, and telemetry logging</li>
+          <li>Bench-tested sensors/heating behavior and summarized recommended thresholds</li>
+          <li>Wrote documentation so new members can reproduce setup and tests</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- ═══ PUBLICATIONS ═══ -->
+    <section id="publications" class="section reveal">
+      <p class="section-label">Research</p>
+      <h2 class="section-title">Publications</h2>
+
+      <div class="pub-item">
+        <p class="pub-title">Temporal Glycemic Patterns in Type 1 and Type 2 Diabetes</p>
+        <p class="pub-venue">Journal of Diabetes Science and Technology</p>
+        <div class="project-links" style="margin-top:10px;">
+          <a class="btn btn-sm" href="https://journals.sagepub.com/doi/10.1177/19322968251341264" target="_blank" rel="noreferrer">View publication ↗</a>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <p class="pub-title">Structure-Based Computational Analysis of Insulin Receptor Interactions</p>
+        <p class="pub-venue">bioRxiv preprint</p>
+        <div class="project-links" style="margin-top:10px;">
+          <a class="btn btn-sm" href="https://www.biorxiv.org/content/10.1101/2024.09.06.611694v1" target="_blank" rel="noreferrer">View preprint ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ LEADERSHIP ═══ -->
+    <section id="leadership" class="section reveal">
+      <p class="section-label">Impact</p>
+      <h2 class="section-title">Leadership</h2>
+
+      <div class="lead-item">
+        <h3>Youth Medical Association — Director of Content</h3>
+        <ul>
+          <li>Led content analytics for 30K+ monthly viewers and delivered biweekly presentations to 100+ members</li>
+          <li>Coordinated 30+ educational tours across 30 chapters and supported cross-team operations</li>
+          <li>Raised $2.5K+ for health causes; earned Gold Level PVSA (509 hours)</li>
+        </ul>
+        <div class="project-links" style="margin-top:12px;">
+          <a class="btn btn-sm" href="https://www.yma.institute/about/meet-our-team" target="_blank" rel="noreferrer">Team page ↗</a>
+        </div>
+      </div>
+
+      <div class="lead-item">
+        <h3>Youth Academic Initiative — Director of Logistics & Curriculum</h3>
+        <ul>
+          <li>Coordinated lesson plans, budgets, and schedules for 150+ SHSAT students with ~15% improvement</li>
+          <li>Led 3 teams of 15 to run weekly classes, develop 20 lesson curricula, and respond to 60+ parent inquiries</li>
+        </ul>
+      </div>
+
+      <div class="lead-item">
+        <h3>Global Health Leaders Conference (Johns Hopkins) — Student Speaker</h3>
+        <ul>
+          <li>Presented CGM research to 200+ attendees; earned Outstanding Speaker Award</li>
+        </ul>
+        <div class="project-links" style="margin-top:12px;">
+          <a class="btn btn-sm" href="https://www.youtube.com/watch?v=ymRuZrz38ug" target="_blank" rel="noreferrer">Talk recording ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SKILLS ═══ -->
+    <section id="skills" class="section reveal">
+      <p class="section-label">Toolkit</p>
+      <h2 class="section-title">Skills</h2>
+
+      <div class="grid-2">
+        <div class="skill-group">
+          <h3>Programming & Data</h3>
+          <div class="skill-tags">
+            <span class="tag">Python (pandas, NumPy)</span>
+            <span class="tag">R (tidyverse)</span>
+            <span class="tag">R Shiny</span>
+            <span class="tag">Java (OOP)</span>
+            <span class="tag">SQL</span>
+            <span class="tag">MATLAB</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tools</h3>
+          <div class="skill-tags">
+            <span class="tag">Excel (pivot tables)</span>
+            <span class="tag">Apache POI</span>
+            <span class="tag">RStudio</span>
+            <span class="tag">Git / GitHub</span>
+            <span class="tag">HTML / CSS</span>
+            <span class="tag">BioRender</span>
+            <span class="tag">Adobe Photoshop</span>
+          </div>
+        </div>
+        <div class="skill-group" style="grid-column: 1 / -1;">
+          <h3>Modeling, Visualization & Hardware</h3>
+          <div class="skill-tags">
+            <span class="tag">AlphaFold Multimer</span>
+            <span class="tag">VMD</span>
+            <span class="tag">CAD</span>
+            <span class="tag">CAE</span>
+            <span class="tag">3D printing</span>
+            <span class="tag">Prototyping</span>
+            <span class="tag">Testing</span>
+            <span class="tag">Raspberry Pi</span>
+            <span class="tag">GPIO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section id="contact" class="section reveal">
+      <p class="section-label">Say hello</p>
+      <h2 class="section-title">Contact</h2>
+
+      <div class="contact-card">
+        <h3>Let's connect</h3>
+        <p>Open to research collaborations, engineering projects, and opportunities.</p>
+        <div class="contact-links">
+          <a class="btn btn-accent" href="mailto:victli@umich.edu">victli@umich.edu</a>
+          <a class="btn" href="https://github.com/Victor-2007" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/victor-li-444b591b9" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn" href="resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© <span id="year"></span> Victor Li</div>
+      <div>Hosted on GitHub Pages</div>
+    </div>
+  </main>
+
+  <script>
+    // ── Theme ──
+    const root = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const key = 'vl_theme';
+
+    function setTheme(t) {
+      root.setAttribute('data-theme', t);
+      localStorage.setItem(key, t);
+      btn.textContent = t === 'dark' ? '☾' : '☀';
+    }
+
+    const saved = localStorage.getItem(key);
+    if (saved === 'dark' || saved === 'light') setTheme(saved);
+    else setTheme('light');
+
+    btn.addEventListener('click', () => {
+      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Scroll reveal ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Image fallback ──
+    document.querySelectorAll('img[data-fallback]').forEach(img => {
+      img.addEventListener('error', () => {
+        const fb = img.getAttribute('data-fallback');
+        if (fb) img.src = fb;
+      }, { once: true });
+    });
+  </script>
+</body>
+</html>
